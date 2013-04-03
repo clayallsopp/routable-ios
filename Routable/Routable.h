@@ -152,6 +152,12 @@ typedef void (^RouterOpenCallback)(NSDictionary *params);
  */
 @property (readwrite, nonatomic, strong) UINavigationController *navigationController;
 
+/**
+ Pop to the last `UIViewController` mapped with the router; this will either dismiss the presented `UIViewController` (i.e. modal) or pop the top view controller in the navigationController.
+ @param animated Whether or not the transition is animated;
+ */
+- (void)pop:(BOOL)animated;
+
 ///-------------------------------
 /// @name Mapping URLs
 ///-------------------------------

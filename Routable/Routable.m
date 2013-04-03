@@ -198,6 +198,15 @@
   }
 }
 
+- (void)pop:(BOOL)animated {
+  if (self.navigationController.presentedViewController) {
+    [self.navigationController dismissViewControllerAnimated:animated completion:nil];
+  }
+  else {
+    [self.navigationController popViewControllerAnimated:animated];
+  }
+}
+
 ///////
 
 - (RouterParams *)routerParamsForUrl:(NSString *)url {
