@@ -7,6 +7,67 @@
 //
 
 #import "UPAppDelegate.h"
+#import "Routable.h"
+
+@interface UserController : UIViewController
+
+@end
+
+@implementation UserController
+
+- (id)initWithRouterParams:(NSDictionary *)params {
+  if ((self = [self initWithNibName:nil bundle:nil])) {
+    self.title = @"User";
+  }
+  return self;
+}
+
+- (void)viewDidLoad {
+  [super viewDidLoad];
+
+  UIButton *modal = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+  [modal setTitle:@"Modal" forState:UIControlStateNormal];
+  [modal addTarget:self action:@selector(tapped:) forControlEvents:UIControlEventTouchUpInside];
+  [modal sizeToFit];
+
+  [self.view addSubview:modal];
+}
+
+- (void)tapped:(id)sender {
+  [[Routable sharedRouter] open:@"modal"];
+}
+
+@end
+
+@interface ModalController : UIViewController
+
+@end
+
+@implementation ModalController
+
+- (id)initWithRouterParams:(NSDictionary *)params {
+  if ((self = [self initWithNibName:nil bundle:nil])) {
+    self.title = @"Modal";
+  }
+  return self;
+}
+
+- (void)viewDidLoad {
+  [super viewDidLoad];
+
+  UIButton *modal = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+  [modal setTitle:@"Modal" forState:UIControlStateNormal];
+  [modal addTarget:self action:@selector(tapped:) forControlEvents:UIControlEventTouchUpInside];
+  [modal sizeToFit];
+
+  [self.view addSubview:modal];
+}
+
+- (void)tapped:(id)sender {
+  [[Routable sharedRouter] open:@"modal"];
+}
+
+@end
 
 @implementation UPAppDelegate
 
@@ -15,7 +76,16 @@
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
     self.window.backgroundColor = [UIColor whiteColor];
+
+    UINavigationController *nav = [[UINavigationController alloc] initWithNibName:nil bundle:nil];
+    [[Routable sharedRouter] map:@"user" toController:[UserController class]];
+    [[Routable sharedRouter] map:@"modal" toController:[ModalController class] withOptions:[UPRouterOptions modal]];
+    [[Routable sharedRouter] setNavigationController:nav];
+
+    [self.window setRootViewController:nav];
     [self.window makeKeyAndVisible];
+
+    [[Routable sharedRouter] open:@"user"];
     return YES;
 }
 
