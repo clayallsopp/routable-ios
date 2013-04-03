@@ -48,9 +48,9 @@ If you're not able to use CocoaPods, please install Routable as a [git submodule
 
 ## Features
 
-### Routable Functions
+### Anonymous Callbacks
 
-You can call arbitrary blocks of code with Routable:
+You can invoke anonymous callbacks with Routable:
 
 ```objective-c
 [[Routable sharedRouter] map:@"invalidate/:id" toCallback:^(NSDictionary *params) {
