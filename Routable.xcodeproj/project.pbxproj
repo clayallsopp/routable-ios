@@ -10,17 +10,17 @@
 		F86EF9C8170C3C7B00EB726A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F86EF9C7170C3C7B00EB726A /* UIKit.framework */; };
 		F86EF9CA170C3C7B00EB726A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F86EF9C9170C3C7B00EB726A /* Foundation.framework */; };
 		F86EF9CC170C3C7B00EB726A /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F86EF9CB170C3C7B00EB726A /* CoreGraphics.framework */; };
-		F86EF9D2170C3C7B00EB726A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = F86EF9D0170C3C7B00EB726A /* InfoPlist.strings */; };
-		F86EF9D4170C3C7B00EB726A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = F86EF9D3170C3C7B00EB726A /* main.m */; };
-		F86EF9D8170C3C7B00EB726A /* UPAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = F86EF9D7170C3C7B00EB726A /* UPAppDelegate.m */; };
-		F86EF9DA170C3C7B00EB726A /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = F86EF9D9170C3C7B00EB726A /* Default.png */; };
-		F86EF9DC170C3C7B00EB726A /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F86EF9DB170C3C7B00EB726A /* Default@2x.png */; };
-		F86EF9DE170C3C7B00EB726A /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F86EF9DD170C3C7B00EB726A /* Default-568h@2x.png */; };
 		F86EF9E6170C3C7B00EB726A /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F86EF9E5170C3C7B00EB726A /* SenTestingKit.framework */; };
 		F86EF9E7170C3C7B00EB726A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F86EF9C7170C3C7B00EB726A /* UIKit.framework */; };
 		F86EF9E8170C3C7B00EB726A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F86EF9C9170C3C7B00EB726A /* Foundation.framework */; };
 		F86EF9F0170C3C7B00EB726A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = F86EF9EE170C3C7B00EB726A /* InfoPlist.strings */; };
 		F86EF9F3170C3C7B00EB726A /* RoutableTests.m in Sources */ = {isa = PBXBuildFile; fileRef = F86EF9F2170C3C7B00EB726A /* RoutableTests.m */; };
+		F86EF9FF170C3D0A00EB726A /* UPAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = F86EF9FE170C3D0A00EB726A /* UPAppDelegate.m */; };
+		F86EFA06170C3D2E00EB726A /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F86EFA00170C3D2E00EB726A /* Default-568h@2x.png */; };
+		F86EFA07170C3D2E00EB726A /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = F86EFA01170C3D2E00EB726A /* Default.png */; };
+		F86EFA08170C3D2E00EB726A /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F86EFA02170C3D2E00EB726A /* Default@2x.png */; };
+		F86EFA09170C3D2E00EB726A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = F86EFA03170C3D2E00EB726A /* main.m */; };
+		F86EFA0D170C3D5D00EB726A /* Routable.m in Sources */ = {isa = PBXBuildFile; fileRef = F86EFA0C170C3D5D00EB726A /* Routable.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,21 +38,22 @@
 		F86EF9C7170C3C7B00EB726A /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		F86EF9C9170C3C7B00EB726A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		F86EF9CB170C3C7B00EB726A /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
-		F86EF9CF170C3C7B00EB726A /* Routable-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Routable-Info.plist"; sourceTree = "<group>"; };
-		F86EF9D1170C3C7B00EB726A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		F86EF9D3170C3C7B00EB726A /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		F86EF9D5170C3C7B00EB726A /* Routable-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Routable-Prefix.pch"; sourceTree = "<group>"; };
-		F86EF9D6170C3C7B00EB726A /* UPAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UPAppDelegate.h; sourceTree = "<group>"; };
-		F86EF9D7170C3C7B00EB726A /* UPAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UPAppDelegate.m; sourceTree = "<group>"; };
-		F86EF9D9170C3C7B00EB726A /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
-		F86EF9DB170C3C7B00EB726A /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
-		F86EF9DD170C3C7B00EB726A /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		F86EF9E4170C3C7B00EB726A /* RoutableTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RoutableTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F86EF9E5170C3C7B00EB726A /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
 		F86EF9ED170C3C7B00EB726A /* RoutableTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "RoutableTests-Info.plist"; sourceTree = "<group>"; };
 		F86EF9EF170C3C7B00EB726A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		F86EF9F1170C3C7B00EB726A /* RoutableTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RoutableTests.h; sourceTree = "<group>"; };
 		F86EF9F2170C3C7B00EB726A /* RoutableTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RoutableTests.m; sourceTree = "<group>"; };
+		F86EF9FD170C3D0A00EB726A /* UPAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UPAppDelegate.h; path = RoutableExample/UPAppDelegate.h; sourceTree = SOURCE_ROOT; };
+		F86EF9FE170C3D0A00EB726A /* UPAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UPAppDelegate.m; path = RoutableExample/UPAppDelegate.m; sourceTree = SOURCE_ROOT; };
+		F86EFA00170C3D2E00EB726A /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default-568h@2x.png"; path = "RoutableExample/Default-568h@2x.png"; sourceTree = SOURCE_ROOT; };
+		F86EFA01170C3D2E00EB726A /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Default.png; path = RoutableExample/Default.png; sourceTree = SOURCE_ROOT; };
+		F86EFA02170C3D2E00EB726A /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default@2x.png"; path = "RoutableExample/Default@2x.png"; sourceTree = SOURCE_ROOT; };
+		F86EFA03170C3D2E00EB726A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = RoutableExample/main.m; sourceTree = SOURCE_ROOT; };
+		F86EFA04170C3D2E00EB726A /* Routable-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "Routable-Info.plist"; path = "RoutableExample/Routable-Info.plist"; sourceTree = SOURCE_ROOT; };
+		F86EFA05170C3D2E00EB726A /* Routable-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "Routable-Prefix.pch"; path = "RoutableExample/Routable-Prefix.pch"; sourceTree = SOURCE_ROOT; };
+		F86EFA0B170C3D5D00EB726A /* Routable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Routable.h; path = Routable/Routable.h; sourceTree = "<group>"; };
+		F86EFA0C170C3D5D00EB726A /* Routable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Routable.m; path = Routable/Routable.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -82,7 +83,8 @@
 		F86EF9BB170C3C7B00EB726A = {
 			isa = PBXGroup;
 			children = (
-				F86EF9CD170C3C7B00EB726A /* Routable */,
+				F86EF9FC170C3C9200EB726A /* Routable */,
+				F86EF9CD170C3C7B00EB726A /* RoutableExample */,
 				F86EF9EB170C3C7B00EB726A /* RoutableTests */,
 				F86EF9C6170C3C7B00EB726A /* Frameworks */,
 				F86EF9C5170C3C7B00EB726A /* Products */,
@@ -109,26 +111,26 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		F86EF9CD170C3C7B00EB726A /* Routable */ = {
+		F86EF9CD170C3C7B00EB726A /* RoutableExample */ = {
 			isa = PBXGroup;
 			children = (
-				F86EF9D6170C3C7B00EB726A /* UPAppDelegate.h */,
-				F86EF9D7170C3C7B00EB726A /* UPAppDelegate.m */,
+				F86EF9FD170C3D0A00EB726A /* UPAppDelegate.h */,
+				F86EF9FE170C3D0A00EB726A /* UPAppDelegate.m */,
 				F86EF9CE170C3C7B00EB726A /* Supporting Files */,
 			);
+			name = RoutableExample;
 			path = Routable;
 			sourceTree = "<group>";
 		};
 		F86EF9CE170C3C7B00EB726A /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				F86EF9CF170C3C7B00EB726A /* Routable-Info.plist */,
-				F86EF9D0170C3C7B00EB726A /* InfoPlist.strings */,
-				F86EF9D3170C3C7B00EB726A /* main.m */,
-				F86EF9D5170C3C7B00EB726A /* Routable-Prefix.pch */,
-				F86EF9D9170C3C7B00EB726A /* Default.png */,
-				F86EF9DB170C3C7B00EB726A /* Default@2x.png */,
-				F86EF9DD170C3C7B00EB726A /* Default-568h@2x.png */,
+				F86EFA00170C3D2E00EB726A /* Default-568h@2x.png */,
+				F86EFA01170C3D2E00EB726A /* Default.png */,
+				F86EFA02170C3D2E00EB726A /* Default@2x.png */,
+				F86EFA03170C3D2E00EB726A /* main.m */,
+				F86EFA04170C3D2E00EB726A /* Routable-Info.plist */,
+				F86EFA05170C3D2E00EB726A /* Routable-Prefix.pch */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -150,6 +152,15 @@
 				F86EF9EE170C3C7B00EB726A /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		F86EF9FC170C3C9200EB726A /* Routable */ = {
+			isa = PBXGroup;
+			children = (
+				F86EFA0B170C3D5D00EB726A /* Routable.h */,
+				F86EFA0C170C3D5D00EB726A /* Routable.m */,
+			);
+			name = Routable;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -224,10 +235,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F86EF9D2170C3C7B00EB726A /* InfoPlist.strings in Resources */,
-				F86EF9DA170C3C7B00EB726A /* Default.png in Resources */,
-				F86EF9DC170C3C7B00EB726A /* Default@2x.png in Resources */,
-				F86EF9DE170C3C7B00EB726A /* Default-568h@2x.png in Resources */,
+				F86EFA06170C3D2E00EB726A /* Default-568h@2x.png in Resources */,
+				F86EFA07170C3D2E00EB726A /* Default.png in Resources */,
+				F86EFA08170C3D2E00EB726A /* Default@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -262,8 +272,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F86EF9D4170C3C7B00EB726A /* main.m in Sources */,
-				F86EF9D8170C3C7B00EB726A /* UPAppDelegate.m in Sources */,
+				F86EF9FF170C3D0A00EB726A /* UPAppDelegate.m in Sources */,
+				F86EFA09170C3D2E00EB726A /* main.m in Sources */,
+				F86EFA0D170C3D5D00EB726A /* Routable.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -286,14 +297,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		F86EF9D0170C3C7B00EB726A /* InfoPlist.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				F86EF9D1170C3C7B00EB726A /* en */,
-			);
-			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
 		F86EF9EE170C3C7B00EB726A /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -367,8 +370,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "Routable/Routable-Prefix.pch";
-				INFOPLIST_FILE = "Routable/Routable-Info.plist";
+				GCC_PREFIX_HEADER = "RoutableExample/Routable-Prefix.pch";
+				INFOPLIST_FILE = "RoutableExample/Routable-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -378,8 +381,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "Routable/Routable-Prefix.pch";
-				INFOPLIST_FILE = "Routable/Routable-Info.plist";
+				GCC_PREFIX_HEADER = "RoutableExample/Routable-Prefix.pch";
+				INFOPLIST_FILE = "RoutableExample/Routable-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -394,9 +397,10 @@
 					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "Routable/Routable-Prefix.pch";
+				GCC_PREFIX_HEADER = "RoutableExample/Routable-Prefix.pch";
 				INFOPLIST_FILE = "RoutableTests/RoutableTests-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 1;
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = octest;
 			};
@@ -411,9 +415,10 @@
 					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "Routable/Routable-Prefix.pch";
+				GCC_PREFIX_HEADER = "RoutableExample/Routable-Prefix.pch";
 				INFOPLIST_FILE = "RoutableTests/RoutableTests-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 1;
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = octest;
 			};
