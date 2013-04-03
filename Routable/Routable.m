@@ -14,7 +14,7 @@
   static UPRouter *_sharedRouter = nil;
   static dispatch_once_t oncePredicate;
   dispatch_once(&oncePredicate, ^{
-    _sharedRouter = [[self alloc] init];
+    _sharedRouter = [self newRouter];
   });
   
   return _sharedRouter;
