@@ -157,6 +157,10 @@
 }
 
 - (void)open:(NSString *)url {
+  [self open:url animated:YES];
+}
+
+- (void)open:(NSString *)url animated:(BOOL)animated {
   RouterParams *params = [self routerParamsForUrl:url];
   UPRouterOptions *options = params.routerOptions;
   
@@ -175,13 +179,13 @@
   UIViewController *controller = [self controllerForRouterParams:params];
   
   if (self.navigationController.presentedViewController) {
-    [self.navigationController dismissViewControllerAnimated:true completion:nil];
+    [self.navigationController dismissViewControllerAnimated:animated completion:nil];
   }
   
   if ([options isModal]) {
     if ([controller.class isSubclassOfClass:UINavigationController.class]) {
       [self.navigationController presentViewController:controller
-                                              animated:YES
+                                              animated:animated
                                             completion:nil];
     }
     else {
@@ -189,12 +193,12 @@
       navigationController.modalPresentationStyle = controller.modalPresentationStyle;
       navigationController.modalTransitionStyle = controller.modalTransitionStyle;
       [self.navigationController presentViewController:navigationController
-                                              animated:YES
+                                              animated:animated
                                             completion:nil];
     }
   }
   else {
-    [self.navigationController pushViewController:controller animated:YES];
+    [self.navigationController pushViewController:controller animated:animated];
   }
 }
 

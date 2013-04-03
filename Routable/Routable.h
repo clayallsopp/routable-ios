@@ -200,12 +200,22 @@ typedef void (^RouterOpenCallback)(NSDictionary *params);
 - (void)openExternal:(NSString *)url;
 
 /**
- Triggers the appropriate functionality for a mapped URL, such as an anonymous function or opening a `UIViewController`
- @param url The URL being opened (i.e. "users/16") 
+ Triggers the appropriate functionality for a mapped URL, such as an anonymous function or opening a `UIViewController`. `UIViewController` transitions will be animated;
+ @param url The URL being opened (i.e. "users/16")
  @exception RouteNotFoundException Thrown if url does not have a valid mapping
  @exception NavigationControllerNotProvided Thrown if url opens a `UIViewController` and navigationController has not been assigned
  @exception RoutableInitializerNotFound Thrown if the mapped `UIViewController` instance does not implement initWithParams:
  */
 - (void)open:(NSString *)url;
+
+/**
+ Triggers the appropriate functionality for a mapped URL, such as an anonymous function or opening a `UIViewController`
+ @param url The URL being opened (i.e. "users/16")
+ @param animated Whether or not `UIViewController` transitions are animated.
+ @exception RouteNotFoundException Thrown if url does not have a valid mapping
+ @exception NavigationControllerNotProvided Thrown if url opens a `UIViewController` and navigationController has not been assigned
+ @exception RoutableInitializerNotFound Thrown if the mapped `UIViewController` instance does not implement initWithParams:
+ */
+ - (void)open:(NSString *)url animated:(BOOL)animated;
 
 @end
