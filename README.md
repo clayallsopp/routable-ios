@@ -11,13 +11,13 @@ Set up your app's router and URLs (usually done in `application:didFinishLaunchi
 [[Routable sharedRouter] setNavigationController: aNavigationController];
 ```
 
-Implement `initWithParams:` in your `UIViewController` subclass:
+Implement `initWithRouterParams:` in your `UIViewController` subclass:
 
 ```objective-c
 @implementation UserController
 
 // params will be non-nil
-- (id)initWithParams:(NSDictionary *)params {
+- (id)initWithRouterParams:(NSDictionary *)params {
   if ((self = [self initWithNibName:nil bundle:nil])) {
     self.userId = [params objectForKey:@"id"];
   }
