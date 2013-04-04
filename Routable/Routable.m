@@ -202,6 +202,10 @@
   }
 }
 
+- (void)pop {
+  [self pop:YES];
+}
+
 - (void)pop:(BOOL)animated {
   if (self.navigationController.presentedViewController) {
     [self.navigationController dismissViewControllerAnimated:animated completion:nil];
