@@ -8,7 +8,8 @@ Set up your app's router and URLs (usually done in `application:didFinishLaunchi
 
 ```objective-c
 [[Routable sharedRouter] map:@"users/:id" toController:[UserController class]];
-[[Routable sharedRouter] setNavigationController: aNavigationController];
+// Requires an instance of UINavigationController to open UIViewControllers
+[[Routable sharedRouter] setNavigationController:aNavigationController];
 ```
 
 Implement `initWithRouterParams:` in your `UIViewController` subclass:
