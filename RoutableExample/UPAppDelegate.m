@@ -56,15 +56,27 @@
   [super viewDidLoad];
 
   UIButton *modal = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-  [modal setTitle:@"Modal" forState:UIControlStateNormal];
+  [modal setTitle:@"Close" forState:UIControlStateNormal];
   [modal addTarget:self action:@selector(tapped:) forControlEvents:UIControlEventTouchUpInside];
   [modal sizeToFit];
 
   [self.view addSubview:modal];
+
+  UIButton *user = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+  [user setTitle:@"User" forState:UIControlStateNormal];
+  [user addTarget:self action:@selector(tappedUser:) forControlEvents:UIControlEventTouchUpInside];
+  [user sizeToFit];
+  [user setFrame:CGRectMake(modal.frame.size.width, 0, user.frame.size.width, user.frame.size.width)];
+
+  [self.view addSubview:user];
 }
 
 - (void)tapped:(id)sender {
-  [[Routable sharedRouter] open:@"modal"];
+  [[Routable sharedRouter] pop];
+}
+
+- (void)tappedUser:(id)sender {
+  [[Routable sharedRouter] open:@"user"];
 }
 
 @end
@@ -79,7 +91,7 @@
 
     UINavigationController *nav = [[UINavigationController alloc] initWithNibName:nil bundle:nil];
     [[Routable sharedRouter] map:@"user" toController:[UserController class]];
-    [[Routable sharedRouter] map:@"modal" toController:[ModalController class] withOptions:[UPRouterOptions modal]];
+    [[Routable sharedRouter] map:@"modal" toController:[ModalController class] withOptions:[[UPRouterOptions modal] withPresentationStyle:UIModalPresentationFormSheet]];
     [[Routable sharedRouter] setNavigationController:nav];
 
     [self.window setRootViewController:nav];
