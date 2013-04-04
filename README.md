@@ -1,6 +1,6 @@
 # Routable
 
-Routable is an in-app native URL router, for iOS.
+Routable is an in-app native URL router, for iOS. Also available for [Android](https://github.com/usepropeller/routable-android).
 
 ## Usage
 
