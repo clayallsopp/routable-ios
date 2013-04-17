@@ -140,7 +140,7 @@ typedef void (^RouterOpenCallback)(NSDictionary *params);
      @implementation UserController
      
      // params will be non-nil
-     - (id)initWithParams:(NSDictionary *)params {
+     - (id)initWithRouterParams:(NSDictionary *)params {
        if ((self = [self initWithNibName:nil bundle:nil])) {
          self.userId = [params objectForKey:@"id"];
        }
@@ -156,6 +156,20 @@ typedef void (^RouterOpenCallback)(NSDictionary *params);
      [[Routable sharedRouter] map:@"invalidate/:id" toCallback:^(NSDictionary *params) {
        [Cache invalidate: [params objectForKey:@"id"]]];
      }];
+ 
+ If you wish to do custom allocation of a controller, you can use allocWithRouterParams:
+ 
+     [[Routable sharedRouter] map:@"users/:id" toController:[StoryboardController class]];
+ 
+     @implementation StoryboardController
+     
+     + (id)allocWithRouterParams:(NSDictionary *)params {
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Storyboard" bundle:nil];
+        StoryboardController *instance = [storyboard instantiateViewControllerWithIdentifier:@"sbController"];
+        instance.userId = [params objectForKey:@"id"];
+ 
+        return instance;
+     }
  
  */
 @interface UPRouter : NSObject
@@ -226,7 +240,7 @@ typedef void (^RouterOpenCallback)(NSDictionary *params);
  @param url The URL being opened (i.e. "users/16")
  @exception RouteNotFoundException Thrown if url does not have a valid mapping
  @exception NavigationControllerNotProvided Thrown if url opens a `UIViewController` and navigationController has not been assigned
- @exception RoutableInitializerNotFound Thrown if the mapped `UIViewController` instance does not implement initWithParams:
+ @exception RoutableInitializerNotFound Thrown if the mapped `UIViewController` instance does not implement -initWithRouterParams: or +allocWithRouterParams:
  */
 - (void)open:(NSString *)url;
 
@@ -236,7 +250,7 @@ typedef void (^RouterOpenCallback)(NSDictionary *params);
  @param animated Whether or not `UIViewController` transitions are animated.
  @exception RouteNotFoundException Thrown if url does not have a valid mapping
  @exception NavigationControllerNotProvided Thrown if url opens a `UIViewController` and navigationController has not been assigned
- @exception RoutableInitializerNotFound Thrown if the mapped `UIViewController` instance does not implement initWithParams:
+ @exception RoutableInitializerNotFound Thrown if the mapped `UIViewController` instance does not implement -initWithRouterParams: or +allocWithRouterParams:
  */
  - (void)open:(NSString *)url animated:(BOOL)animated;
 

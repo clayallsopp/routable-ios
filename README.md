@@ -32,6 +32,22 @@ NSString *aUrl = @"users/4";
 [[Routable sharedRouter] open:aUrl];
 ```
 
+If you wish to do custom allocation of a controller, you can use allocWithRouterParams:
+
+```objective-c
+[[Routable sharedRouter] map:@"users/:id" toController:[StoryboardController class]];
+
+@implementation StoryboardController
+
++ (id)allocWithRouterParams:(NSDictionary *)params {
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Storyboard" bundle:nil];
+    StoryboardController *instance = [storyboard instantiateViewControllerWithIdentifier:@"sbController"];
+    instance.userId = [params objectForKey:@"id"];
+
+    return instance;
+}
+```
+
 ## Installation
 
 ### [CocoaPods](http://cocoapods.org/)

@@ -27,11 +27,30 @@
 
 @end
 
+@interface StaticController : UIViewController
+
+@property (readwrite, nonatomic, copy) NSString *userId;
+
++ (id)allocWithRouterParams:(NSDictionary *)params;
+@end
+
+@implementation StaticController
+
++ (id)allocWithRouterParams:(NSDictionary *)params {
+  StaticController *instance = [[StaticController alloc] initWithNibName:nil bundle:nil];
+  instance.userId = [params objectForKey:@"user_id"];
+
+  return instance;
+}
+
+@end
+
 @interface RoutableTests()
 @property (readwrite, nonatomic, strong) UPRouter *router;
 @end
 
 #define USER_ID [(UserController *)self.router.navigationController.topViewController userId]
+#define STATIC_USER_ID [(StaticController *)self.router.navigationController.topViewController userId]
 
 @implementation RoutableTests
 @synthesize router = _router;
@@ -113,6 +132,15 @@
   [self.router open:@"users"];
   
   STAssertTrue([userId isEqualToString:@"4"], @"Callback should have correct id param; was %@", userId);
+}
+
+- (void)test_staticRoute {  
+  [self.router map:@"users/:user_id" toController:[StaticController class]];
+  
+  [self.router open:@"users/4"];
+  
+  STAssertTrue([self.router.navigationController.topViewController isKindOfClass:[StaticController class]], @"Should be an instance of StaticController");
+  STAssertTrue([STATIC_USER_ID isEqualToString:@"4"], @"Should have an ID of 4");  
 }
 
 @end

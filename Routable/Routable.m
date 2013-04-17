@@ -126,8 +126,9 @@
 @end
 
 #define ROUTE_NOT_FOUND_FORMAT @"No route found for URL %@"
-#define INVALID_CONTROLLER_FORMAT @"Your controller class %@ needs to implement %@"
+#define INVALID_CONTROLLER_FORMAT @"Your controller class %@ needs to implement either the static method %@ or the instance method %@"
 
+#define CONTROLLER_CLASS_SELECTOR @selector(allocWithRouterParams:)
 #define CONTROLLER_SELECTOR @selector(initWithRouterParams:)
 
 @implementation UPRouter
@@ -295,14 +296,22 @@
 }
 
 - (UIViewController *)controllerForRouterParams:(RouterParams *)params {
-  UIViewController *controller = [params.routerOptions.openClass alloc];
-  
-  if ([controller respondsToSelector:CONTROLLER_SELECTOR]) {
-    controller = [controller performSelector:CONTROLLER_SELECTOR withObject:[params getControllerParams]];
+  UIViewController *controller = nil;
+  Class controllerClass = params.routerOptions.openClass;
+  if ([controllerClass respondsToSelector:CONTROLLER_CLASS_SELECTOR]) {
+    controller = [controllerClass performSelector:CONTROLLER_CLASS_SELECTOR withObject:[params getControllerParams]];
   }
   else {
+    controller = [params.routerOptions.openClass alloc];
+    if ([controller respondsToSelector:CONTROLLER_SELECTOR]) {
+      controller = [controller performSelector:CONTROLLER_SELECTOR withObject:[params getControllerParams]];
+    }
+  }
+
+
+  if (controller == nil) {
     @throw [NSException exceptionWithName:@"RoutableInitializerNotFound"
-                                   reason:[NSString stringWithFormat:INVALID_CONTROLLER_FORMAT, NSStringFromClass([controller class]), NSStringFromSelector(CONTROLLER_SELECTOR)]
+                                   reason:[NSString stringWithFormat:INVALID_CONTROLLER_FORMAT, NSStringFromClass(controllerClass), NSStringFromSelector(CONTROLLER_CLASS_SELECTOR),  NSStringFromSelector(CONTROLLER_SELECTOR)]
                                  userInfo:nil];
   }
   
