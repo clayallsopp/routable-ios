@@ -1,6 +1,6 @@
 # Routable
 
-Routable is an in-app native URL router, for iOS.
+Routable is an in-app native URL router, for iOS. Also available for [Android](https://github.com/usepropeller/routable-android).
 
 ## Usage
 
@@ -8,16 +8,17 @@ Set up your app's router and URLs (usually done in `application:didFinishLaunchi
 
 ```objective-c
 [[Routable sharedRouter] map:@"users/:id" toController:[UserController class]];
-[[Routable sharedRouter] setNavigationController: aNavigationController];
+// Requires an instance of UINavigationController to open UIViewControllers
+[[Routable sharedRouter] setNavigationController:aNavigationController];
 ```
 
-Implement `initWithParams:` in your `UIViewController` subclass:
+Implement `initWithRouterParams:` in your `UIViewController` subclass:
 
 ```objective-c
 @implementation UserController
 
 // params will be non-nil
-- (id)initWithParams:(NSDictionary *)params {
+- (id)initWithRouterParams:(NSDictionary *)params {
   if ((self = [self initWithNibName:nil bundle:nil])) {
     self.userId = [params objectForKey:@"id"];
   }
