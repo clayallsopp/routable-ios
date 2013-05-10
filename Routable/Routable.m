@@ -277,7 +277,7 @@
                  withRouterUrlComponents:(NSArray *)routerUrlComponents {
   NSMutableDictionary *params = [NSMutableDictionary new];
   
-  for (int i = 0; i < routerUrlComponents.count; i++) {
+  for (NSUInteger i = 0; i < routerUrlComponents.count; i++) {
     NSString *routerComponent = routerUrlComponents[i];
     NSString *givenComponent = givenUrlComponents[i];
     
