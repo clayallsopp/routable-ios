@@ -122,6 +122,8 @@
 // Map of final URL NSStrings -> RouterParams
 // i.e. "users/16"
 @property (readwrite, nonatomic, strong) NSMutableDictionary *cachedRoutes;
+// Child routers
+@property (readwrite, nonatomic, strong) NSMutableDictionary *childRouters;
 
 @end
 
@@ -136,14 +138,20 @@
 @synthesize navigationController = _navigationController;
 @synthesize routes = _routes;
 @synthesize cachedRoutes = _cachedRoutes;
+@synthesize childRouters = _childRouters;
 
 - (id)init {
   if ((self = [super init])) {
     self.routes = [NSMutableDictionary new];
     self.cachedRoutes = [NSMutableDictionary new];
+    self.childRouters = [NSMutableDictionary new];
   }
 
   return self;
+}
+
+- (void)mapPath:(NSString *)path toChildRouter:(UPRouter*)childRouter {
+  [self.childRouters setValue:childRouter forKey:path];
 }
 
 - (void)map:(NSString *)format toCallback:(RouterOpenCallback)callback {
@@ -179,6 +187,14 @@
 }
 
 - (void)open:(NSString *)url animated:(BOOL)animated {
+  NSMutableArray *pathComponets = url.pathComponents.mutableCopy;
+  if(pathComponets.count && self.childRouters[pathComponets[0]]) {
+    UPRouter *childRouter = self.childRouters[pathComponets[0]];
+    [pathComponets removeObjectAtIndex:0];
+    [childRouter open:[pathComponets componentsJoinedByString:@"/"] animated:animated];
+    return;
+  }
+
   RouterParams *params = [self routerParamsForUrl:url];
   UPRouterOptions *options = params.routerOptions;
   

@@ -143,4 +143,22 @@
   STAssertTrue([STATIC_USER_ID isEqualToString:@"4"], @"Should have an ID of 4");  
 }
 
+- (void)test_childRouters {
+  UPRouter *firstChild = [UPRouter new];
+  UPRouter *secondChild = [UPRouter new];
+  UPRouter *router = [Routable sharedRouter];
+
+  __block NSString *userId = nil;
+
+  [secondChild map:@"users/:id" toCallback:^(NSDictionary *params) {
+    userId = params[@"id"];
+  }];
+
+  [router mapPath:@"firstLevel" toChildRouter:firstChild];
+  [firstChild mapPath:@"secondLevel" toChildRouter:secondChild];
+
+  [router open:@"firstLevel/secondLevel/users/1234" animated:NO];
+  STAssertEqualObjects(userId, @"1234", @"Should have opened the child router for this path");
+}
+
 @end
