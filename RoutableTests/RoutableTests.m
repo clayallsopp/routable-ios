@@ -143,4 +143,45 @@
   STAssertTrue([STATIC_USER_ID isEqualToString:@"4"], @"Should have an ID of 4");  
 }
 
+- (void)test_childRouters {
+  UPRouter *masterRouter = [Routable sharedRouter];
+  UPRouter *contentRouter = [UPRouter new];
+  UPRouter *browsingRouter = [UPRouter new];
+
+  UPRouter *notificationRouter = [UPRouter new];
+
+  __block NSString *userId = nil;
+  __block NSString *productId = nil;
+  __block NSString *notificationId = nil;
+  __block BOOL homePageFlag = NO;
+
+  [masterRouter mapPath:@"content" toChildRouter:contentRouter];
+  [contentRouter mapPath:@"browsing" toChildRouter:browsingRouter];
+  [contentRouter map:@"homepage" toCallback:^(NSDictionary *params) {
+    homePageFlag = YES;
+  }];
+
+  [browsingRouter map:@"users/:id" toCallback:^(NSDictionary *params) {
+    userId = params[@"id"];
+  }];
+  [browsingRouter map:@"products/:id" toCallback:^(NSDictionary *params) {
+    productId = params[@"id"];
+  }];
+
+  [masterRouter mapPath:@"notifications" toChildRouter:notificationRouter];
+  [notificationRouter map:@"system/:id" toCallback:^(NSDictionary *params) {
+    notificationId = params[@"id"];
+  }];
+
+  [masterRouter open:@"content/homepage" animated:NO];
+  [masterRouter open:@"content/browsing/users/1234" animated:NO];
+  [masterRouter open:@"content/browsing/products/abcd" animated:NO];
+  [masterRouter open:@"notifications/system/9898"];
+
+  STAssertEquals(homePageFlag, YES, @"Should have opened the home page");
+  STAssertEqualObjects(userId, @"1234", @"Should have opened the user profile");
+  STAssertEqualObjects(productId, @"abcd", @"Should have opened the product page");
+  STAssertEqualObjects(notificationId, @"9898", @"Should have opened the notification");
+}
+
 @end

@@ -226,6 +226,15 @@ typedef void (^RouterOpenCallback)(NSDictionary *params);
  */
 - (void)map:(NSString *)format toController:(Class)controllerClass withOptions:(UPRouterOptions *)options;
 
+/**
+ Map a root path to a given child router.
+ @param path A single path component. This will be stripped when passing the url
+ to the child router to open.
+ @param childRouter the child router that should attempt to open the remainder of the url.
+ */
+- (void)mapPath:(NSString *)path toChildRouter:(UPRouter*)childRouter;
+
+
 ///-------------------------------
 /// @name Opening URLs
 ///-------------------------------
