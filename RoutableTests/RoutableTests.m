@@ -146,7 +146,7 @@
 - (void)test_noInitializers {
   [self.router map:@"routable" toController:[UIViewController class]];
   
-  STAssertThrows([self.router open:@"routable"], @"Should throw an exception when no initializers found");
+  STAssertThrows([self.router open:@"routable"], @"Should throw an exception when no initializer found");
 }
 
 @end
