@@ -306,6 +306,9 @@
     if ([controller respondsToSelector:CONTROLLER_SELECTOR]) {
       controller = [controller performSelector:CONTROLLER_SELECTOR withObject:[params getControllerParams]];
     }
+    else {
+      controller = nil;
+    }
   }
 
 

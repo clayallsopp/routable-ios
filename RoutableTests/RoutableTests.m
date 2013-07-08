@@ -143,4 +143,10 @@
   STAssertTrue([STATIC_USER_ID isEqualToString:@"4"], @"Should have an ID of 4");  
 }
 
+- (void)test_noInitializers {
+  [self.router map:@"routable" toController:[UIViewController class]];
+  
+  STAssertThrows([self.router open:@"routable"], @"Should throw an exception when no initializer found");
+}
+
 @end
