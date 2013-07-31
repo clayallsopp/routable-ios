@@ -27,18 +27,17 @@
 
 @implementation Routable
 
-+ (UPRouter *)sharedRouter {
-  static UPRouter *_sharedRouter = nil;
++ (instancetype)sharedRouter {
+  static Routable *_sharedRouter = nil;
   static dispatch_once_t oncePredicate;
   dispatch_once(&oncePredicate, ^{
     _sharedRouter = [self newRouter];
   });
-  
   return _sharedRouter;
 }
 
-+ (UPRouter *)newRouter {
-  return [UPRouter new];
++ (instancetype)newRouter {
+  return [self new];
 }
 
 @end
@@ -75,20 +74,20 @@
 @synthesize openClass = _openClass;
 @synthesize callback = _callback;
 
-+ (UPRouterOptions *)modal {
-  return [[UPRouterOptions new] modal];
++ (instancetype)modal {
+  return [[self new] modal];
 }
 
-+ (UPRouterOptions *)withPresentationStyle:(UIModalPresentationStyle)style {
-  return [[UPRouterOptions new] withPresentationStyle:style];
++ (instancetype)withPresentationStyle:(UIModalPresentationStyle)style {
+  return [[self new] withPresentationStyle:style];
 }
 
-+ (UPRouterOptions *)withTransitionStyle:(UIModalTransitionStyle)style {
-  return [[UPRouterOptions new] withTransitionStyle:style];
++ (instancetype)withTransitionStyle:(UIModalTransitionStyle)style {
+  return [[self new] withTransitionStyle:style];
 }
 
-+ (UPRouterOptions *)forDefaultParams:(NSDictionary *)defaultParams {
-  return [[UPRouterOptions new] forDefaultParams:defaultParams];
++ (instancetype)forDefaultParams:(NSDictionary *)defaultParams {
+  return [[self new] forDefaultParams:defaultParams];
 }
 
 - (UPRouterOptions *)modal {
