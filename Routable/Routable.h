@@ -32,21 +32,6 @@
  `Routable` is a "factory" class which gives a more pleasant syntax for dealing with routers. `Routable` probably has fewer name collisions than `Router`, which is why `UPRouter`s are given a 2-letter prefix.
  */
 
-@interface Routable : NSObject
-
-/**
- A singleton instance of `UPRouter` which can be accessed anywhere in the app.
- @return A singleton instance of `UPRouter`.
- */
-+ (UPRouter *)sharedRouter;
-
-/**
- A new instance of `UPRouter`, in case you want to use multiple routers in your app.
- @return A new instance of `UPRouter`.
- */
-+ (UPRouter *)newRouter;
-
-@end
 
 typedef void (^RouterOpenCallback)(NSDictionary *params);
 
@@ -254,5 +239,22 @@ typedef void (^RouterOpenCallback)(NSDictionary *params);
  @exception RoutableInitializerNotFound Thrown if the mapped `UIViewController` instance does not implement -initWithRouterParams: or +allocWithRouterParams:
  */
  - (void)open:(NSString *)url animated:(BOOL)animated;
+
+@end
+
+
+@interface Routable : UPRouter
+
+/**
+ A singleton instance of `UPRouter` which can be accessed anywhere in the app.
+ @return A singleton instance of `UPRouter`.
+ */
++ (instancetype)sharedRouter;
+
+/**
+ A new instance of `UPRouter`, in case you want to use multiple routers in your app.
+ @return A new instance of `UPRouter`.
+ */
++ (instancetype)newRouter;
 
 @end

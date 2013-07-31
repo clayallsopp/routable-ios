@@ -27,18 +27,17 @@
 
 @implementation Routable
 
-+ (UPRouter *)sharedRouter {
-  static UPRouter *_sharedRouter = nil;
++ (instancetype)sharedRouter {
+  static Routable *_sharedRouter = nil;
   static dispatch_once_t oncePredicate;
   dispatch_once(&oncePredicate, ^{
     _sharedRouter = [self newRouter];
   });
-  
   return _sharedRouter;
 }
 
-+ (UPRouter *)newRouter {
-  return [UPRouter new];
++ (instancetype)newRouter {
+  return [self new];
 }
 
 @end
