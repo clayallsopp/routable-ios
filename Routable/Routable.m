@@ -38,7 +38,7 @@
 }
 
 + (UPRouter *)newRouter {
-  return [UPRouter new];
+  return [self new];
 }
 
 @end
