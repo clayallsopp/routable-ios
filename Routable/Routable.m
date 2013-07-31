@@ -74,20 +74,20 @@
 @synthesize openClass = _openClass;
 @synthesize callback = _callback;
 
-+ (UPRouterOptions *)modal {
-  return [[UPRouterOptions new] modal];
++ (instancetype)modal {
+  return [[self new] modal];
 }
 
-+ (UPRouterOptions *)withPresentationStyle:(UIModalPresentationStyle)style {
-  return [[UPRouterOptions new] withPresentationStyle:style];
++ (instancetype)withPresentationStyle:(UIModalPresentationStyle)style {
+  return [[self new] withPresentationStyle:style];
 }
 
-+ (UPRouterOptions *)withTransitionStyle:(UIModalTransitionStyle)style {
-  return [[UPRouterOptions new] withTransitionStyle:style];
++ (instancetype)withTransitionStyle:(UIModalTransitionStyle)style {
+  return [[self new] withTransitionStyle:style];
 }
 
-+ (UPRouterOptions *)forDefaultParams:(NSDictionary *)defaultParams {
-  return [[UPRouterOptions new] forDefaultParams:defaultParams];
++ (instancetype)forDefaultParams:(NSDictionary *)defaultParams {
+  return [[self new] forDefaultParams:defaultParams];
 }
 
 - (UPRouterOptions *)modal {

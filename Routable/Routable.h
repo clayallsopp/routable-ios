@@ -54,22 +54,22 @@ typedef void (^RouterOpenCallback)(NSDictionary *params);
 /**
  @return A new instance of `UPRouterOptions`, setting a modal presentation format.
  */
-+ (UPRouterOptions *)modal;
++ (instancetype)modal;
 /**
  @return A new instance of `UPRouterOptions`, setting a `UIModalPresentationStyle` style.
  @param style The `UIModalPresentationStyle` attached to the mapped `UIViewController`
  */
-+ (UPRouterOptions *)withPresentationStyle:(UIModalPresentationStyle)style;
++ (instancetype)withPresentationStyle:(UIModalPresentationStyle)style;
 /**
  @return A new instance of `UPRouterOptions`, setting a `UIModalTransitionStyle` style.
  @param style The `UIModalTransitionStyle` attached to the mapped `UIViewController`
  */
-+ (UPRouterOptions *)withTransitionStyle:(UIModalTransitionStyle)style;
++ (instancetype)withTransitionStyle:(UIModalTransitionStyle)style;
 /**
  @return A new instance of `UPRouterOptions`, setting the defaultParams
  @param defaultParams The default parameters which are passed when opening the URL
  */
-+ (UPRouterOptions *)forDefaultParams:(NSDictionary *)defaultParams;
++ (instancetype)forDefaultParams:(NSDictionary *)defaultParams;
 
 /**
  @return The same instance of `UPRouterOptions`, setting a modal presentation format.
