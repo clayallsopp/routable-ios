@@ -33,7 +33,7 @@ NSString *aUrl = @"users/4";
 [[Routable sharedRouter] open:aUrl];
 ```
 
-If you wish to do custom allocation of a controller, you can use allocWithRouterParams:
+If you wish to do custom allocation of a controller, you can use `+allocWithRouterParams:`
 
 ```objective-c
 [[Routable sharedRouter] map:@"users/:id" toController:[StoryboardController class]];
