@@ -127,7 +127,7 @@
 #define ROUTE_NOT_FOUND_FORMAT @"No route found for URL %@"
 #define INVALID_CONTROLLER_FORMAT @"Your controller class %@ needs to implement either the static method %@ or the instance method %@"
 
-#define CONTROLLER_CLASS_SELECTOR @selector(allocWithRouterParams:)
+#define CONTROLLER_CLASS_SELECTOR @selector(controllerWithRouterParams:)
 #define CONTROLLER_SELECTOR @selector(initWithRouterParams:)
 
 @implementation UPRouter
