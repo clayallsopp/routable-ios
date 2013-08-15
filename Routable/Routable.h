@@ -143,13 +143,13 @@ typedef void (^RouterOpenCallback)(NSDictionary *params);
        [Cache invalidate: [params objectForKey:@"id"]]];
      }];
  
- If you wish to do custom allocation of a controller, you can use allocWithRouterParams:
+ If you wish to do custom allocation of a controller, you can use controllerWithRouterParams:
  
      [[Routable sharedRouter] map:@"users/:id" toController:[StoryboardController class]];
  
      @implementation StoryboardController
      
-     + (id)allocWithRouterParams:(NSDictionary *)params {
+     + (id)controllerWithRouterParams:(NSDictionary *)params {
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Storyboard" bundle:nil];
         StoryboardController *instance = [storyboard instantiateViewControllerWithIdentifier:@"sbController"];
         instance.userId = [params objectForKey:@"id"];
