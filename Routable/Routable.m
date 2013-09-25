@@ -179,6 +179,11 @@
 
 - (void)open:(NSString *)url animated:(BOOL)animated {
   RouterParams *params = [self routerParamsForUrl:url];
+  
+  if (params == nil) {
+    return;
+  }
+  
   UPRouterOptions *options = params.routerOptions;
   
   if (options.callback) {
@@ -262,9 +267,13 @@
   }
   
   if (!openParams) {
+#ifndef __OPTIMIZE__
     @throw [NSException exceptionWithName:@"RouteNotFoundException"
                                    reason:[NSString stringWithFormat:ROUTE_NOT_FOUND_FORMAT, url]
                                  userInfo:nil];
+#else
+    return nil;
+#endif
   }
   
   [self.cachedRoutes setObject:openParams forKey:url];
