@@ -150,7 +150,7 @@
 }
 
 - (void)test_openAsRoot {
-    [self.router map:@"users/:user_id" toController:[UserController class]];
+    [self.router map:@"users/:user_id" toController:[UserController class] withOptions:[UPRouterOptions root]];
     
     [self.router open:@"users/4"];
     
