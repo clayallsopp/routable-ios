@@ -90,6 +90,10 @@
   return [[self new] forDefaultParams:defaultParams];
 }
 
++ (instancetype)root {
+    return [[self new] root];
+}
+
 - (UPRouterOptions *)modal {
   self.modal = true;
   return self;
@@ -110,6 +114,10 @@
   return self;
 }
 
+- (UPRouterOptions *)root {
+    self.shouldOpenAsRootViewController = YES;
+    return self;
+}
 
 @end
 
@@ -215,7 +223,12 @@
     }
   }
   else {
-    [self.navigationController pushViewController:controller animated:animated];
+      if (options.shouldOpenAsRootViewController) {
+          [self.navigationController setViewControllers:@[controller] animated:animated];
+      }
+      else {
+          [self.navigationController pushViewController:controller animated:animated];
+      }
   }
 }
 
