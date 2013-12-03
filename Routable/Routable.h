@@ -71,7 +71,7 @@ typedef void (^RouterOpenCallback)(NSDictionary *params);
  */
 + (instancetype)forDefaultParams:(NSDictionary *)defaultParams;
 /**
- @return A new instance of `UPRouterOptions`, setting the `openAsRootViewController` property to `YES`
+ @return A new instance of `UPRouterOptions`, setting the `shouldOpenAsRootViewController` property to `YES`
  */
 + (instancetype)root;
 
@@ -95,7 +95,7 @@ typedef void (^RouterOpenCallback)(NSDictionary *params);
  */
 - (UPRouterOptions *)forDefaultParams:(NSDictionary *)defaultParams;
 /**
- @return A new instance of `UPRouterOptions`, setting the `openAsRootViewController` property to `YES`
+ @return A new instance of `UPRouterOptions`, setting the `shouldOpenAsRootViewController` property to `YES`
  */
 - (UPRouterOptions *)root;
 
