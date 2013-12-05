@@ -135,9 +135,6 @@
 #define ROUTE_NOT_FOUND_FORMAT @"No route found for URL %@"
 #define INVALID_CONTROLLER_FORMAT @"Your controller class %@ needs to implement either the static method %@ or the instance method %@"
 
-#define CONTROLLER_CLASS_SELECTOR @selector(controllerWithRouterParams:)
-#define CONTROLLER_SELECTOR @selector(initWithRouterParams:)
-
 @implementation UPRouter
 
 @synthesize navigationController = _navigationController;
@@ -308,8 +305,12 @@
 }
 
 - (UIViewController *)controllerForRouterParams:(RouterParams *)params {
+  SEL CONTROLLER_CLASS_SELECTOR = @selector(controllerWithRouterParams:);
+  SEL CONTROLLER_SELECTOR = @selector(initWithRouterParams:);
   UIViewController *controller = nil;
   Class controllerClass = params.routerOptions.openClass;
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
   if ([controllerClass respondsToSelector:CONTROLLER_CLASS_SELECTOR]) {
     controller = [controllerClass performSelector:CONTROLLER_CLASS_SELECTOR withObject:[params getControllerParams]];
   }
@@ -322,7 +323,7 @@
       controller = nil;
     }
   }
-
+#pragma clang diagnostic pop
 
   if (controller == nil) {
     @throw [NSException exceptionWithName:@"RoutableInitializerNotFound"
