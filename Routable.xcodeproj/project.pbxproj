@@ -371,6 +371,7 @@
 			buildSettings = {
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "RoutableExample/Routable-Prefix.pch";
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				INFOPLIST_FILE = "RoutableExample/Routable-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
@@ -382,6 +383,7 @@
 			buildSettings = {
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "RoutableExample/Routable-Prefix.pch";
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				INFOPLIST_FILE = "RoutableExample/Routable-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
@@ -443,6 +445,7 @@
 				F86EF9F8170C3C7B00EB726A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		F86EF9F9170C3C7B00EB726A /* Build configuration list for PBXNativeTarget "RoutableTests" */ = {
 			isa = XCConfigurationList;
@@ -451,6 +454,7 @@
 				F86EF9FB170C3C7B00EB726A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

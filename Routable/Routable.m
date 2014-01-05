@@ -305,8 +305,8 @@
 }
 
 - (UIViewController *)controllerForRouterParams:(RouterParams *)params {
-  SEL CONTROLLER_CLASS_SELECTOR = @selector(controllerWithRouterParams:);
-  SEL CONTROLLER_SELECTOR = @selector(initWithRouterParams:);
+  SEL CONTROLLER_CLASS_SELECTOR = sel_registerName("allocWithRouterParams:");
+  SEL CONTROLLER_SELECTOR = sel_registerName("initWithRouterParams:");
   UIViewController *controller = nil;
   Class controllerClass = params.routerOptions.openClass;
 #pragma clang diagnostic push
