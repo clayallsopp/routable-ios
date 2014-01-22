@@ -54,7 +54,7 @@ If you wish to do custom allocation of a controller, you can use `+controllerWit
 ### [CocoaPods](http://cocoapods.org/)
 
 ```ruby
-pod 'Routable', '~> 0.0.4'
+pod 'Routable', '0.0.2'
 ```
 
 ```objective-c
