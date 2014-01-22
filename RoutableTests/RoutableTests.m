@@ -149,4 +149,13 @@
   STAssertThrows([self.router open:@"routable"], @"Should throw an exception when no initializer found");
 }
 
+- (void)test_openAsRoot {
+    [self.router map:@"users/:user_id" toController:[UserController class] withOptions:[UPRouterOptions root]];
+    
+    [self.router open:@"users/4"];
+    
+    STAssertTrue([self.router.navigationController.viewControllers[0] isKindOfClass:[UserController class]], @"Should be an instance of UserController");
+    STAssertTrue(self.router.navigationController.viewControllers.count == 1, @"Navigation controller should only have 1 view controller in its stack");
+}
+
 @end

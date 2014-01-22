@@ -70,6 +70,10 @@ typedef void (^RouterOpenCallback)(NSDictionary *params);
  @param defaultParams The default parameters which are passed when opening the URL
  */
 + (instancetype)forDefaultParams:(NSDictionary *)defaultParams;
+/**
+ @return A new instance of `UPRouterOptions`, setting the `shouldOpenAsRootViewController` property to `YES`
+ */
++ (instancetype)root;
 
 /**
  @return The same instance of `UPRouterOptions`, setting a modal presentation format.
@@ -90,6 +94,10 @@ typedef void (^RouterOpenCallback)(NSDictionary *params);
  @param defaultParams The default parameters which are passed when opening the URL
  */
 - (UPRouterOptions *)forDefaultParams:(NSDictionary *)defaultParams;
+/**
+ @return A new instance of `UPRouterOptions`, setting the `shouldOpenAsRootViewController` property to `YES`
+ */
+- (UPRouterOptions *)root;
 
 ///-------------------------------
 /// @name Properties
@@ -111,6 +119,10 @@ typedef void (^RouterOpenCallback)(NSDictionary *params);
  Default parameters sent to the `UIViewController`'s initWithRouterParams: method. This is useful if you want to pass some non-`NSString` information. These parameters will be overwritten by any parameters passed in the URL in open:.
  */
 @property (readwrite, nonatomic, strong) NSDictionary *defaultParams;
+/**
+ The property determining if the mapped `UIViewController` instance should be set as the root view controller of the router's `UINavigationController` instance.
+ */
+@property (readwrite, nonatomic, assign) BOOL shouldOpenAsRootViewController;
 
 @end
 

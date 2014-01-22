@@ -90,6 +90,10 @@
   return [[self new] forDefaultParams:defaultParams];
 }
 
++ (instancetype)root {
+    return [[self new] root];
+}
+
 - (UPRouterOptions *)modal {
   self.modal = true;
   return self;
@@ -110,6 +114,10 @@
   return self;
 }
 
+- (UPRouterOptions *)root {
+    self.shouldOpenAsRootViewController = YES;
+    return self;
+}
 
 @end
 
@@ -126,9 +134,6 @@
 
 #define ROUTE_NOT_FOUND_FORMAT @"No route found for URL %@"
 #define INVALID_CONTROLLER_FORMAT @"Your controller class %@ needs to implement either the static method %@ or the instance method %@"
-
-#define CONTROLLER_CLASS_SELECTOR @selector(controllerWithRouterParams:)
-#define CONTROLLER_SELECTOR @selector(initWithRouterParams:)
 
 @implementation UPRouter
 
@@ -215,7 +220,12 @@
     }
   }
   else {
-    [self.navigationController pushViewController:controller animated:animated];
+      if (options.shouldOpenAsRootViewController) {
+          [self.navigationController setViewControllers:@[controller] animated:animated];
+      }
+      else {
+          [self.navigationController pushViewController:controller animated:animated];
+      }
   }
 }
 
@@ -295,8 +305,12 @@
 }
 
 - (UIViewController *)controllerForRouterParams:(RouterParams *)params {
+  SEL CONTROLLER_CLASS_SELECTOR = sel_registerName("allocWithRouterParams:");
+  SEL CONTROLLER_SELECTOR = sel_registerName("initWithRouterParams:");
   UIViewController *controller = nil;
   Class controllerClass = params.routerOptions.openClass;
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
   if ([controllerClass respondsToSelector:CONTROLLER_CLASS_SELECTOR]) {
     controller = [controllerClass performSelector:CONTROLLER_CLASS_SELECTOR withObject:[params getControllerParams]];
   }
@@ -309,7 +323,7 @@
       controller = nil;
     }
   }
-
+#pragma clang diagnostic pop
 
   if (controller == nil) {
     @throw [NSException exceptionWithName:@"RoutableInitializerNotFound"
