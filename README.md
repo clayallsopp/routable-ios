@@ -49,6 +49,12 @@ If you wish to do custom allocation of a controller, you can use `+allocWithRout
 }
 ```
 
+Set `ignoresExceptions` to `YES` to NOT throw exceptions (suggested for a Release/Distribution version)
+
+```objective-c
+[[Routable sharedRouter] setIgnoresExceptions:YES];
+```
+
 ## Installation
 
 ### [CocoaPods](http://cocoapods.org/)

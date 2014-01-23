@@ -193,6 +193,10 @@
   }
   
   if (!self.navigationController) {
+    if (_ignoresExceptions) {
+      return;
+    }
+    
     @throw [NSException exceptionWithName:@"NavigationControllerNotProvided"
                                    reason:@"Router#navigationController has not been set to a UINavigationController instance"
                                  userInfo:nil];
@@ -272,6 +276,10 @@
   }
   
   if (!openParams) {
+    if (_ignoresExceptions) {
+      return nil;
+    }
+    
     @throw [NSException exceptionWithName:@"RouteNotFoundException"
                                    reason:[NSString stringWithFormat:ROUTE_NOT_FOUND_FORMAT, url]
                                  userInfo:nil];
@@ -326,6 +334,10 @@
 #pragma clang diagnostic pop
 
   if (controller == nil) {
+    if (_ignoresExceptions) {
+      return nil;
+    }
+    
     @throw [NSException exceptionWithName:@"RoutableInitializerNotFound"
                                    reason:[NSString stringWithFormat:INVALID_CONTROLLER_FORMAT, NSStringFromClass(controllerClass), NSStringFromSelector(CONTROLLER_CLASS_SELECTOR),  NSStringFromSelector(CONTROLLER_SELECTOR)]
                                  userInfo:nil];

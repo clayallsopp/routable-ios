@@ -197,6 +197,11 @@ typedef void (^RouterOpenCallback)(NSDictionary *params);
 ///-------------------------------
 
 /**
+ The property controls for throwing exception or not in your app. NOT throwing any exceptions if set to `YES`, default `NO`;
+ */
+@property (readwrite, nonatomic, assign) BOOL ignoresExceptions;
+
+/**
  Map a URL format to an anonymous callback
  @param format A URL format (i.e. "users/:id" or "logout")
  @param callback The callback to run when the URL is triggered in `open:`
