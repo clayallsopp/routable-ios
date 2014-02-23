@@ -253,12 +253,12 @@
     return [self.cachedRoutes objectForKey:url];
   }
   
-  NSArray *givenParts = [url componentsSeparatedByString:@"/"];
+  NSArray *givenParts = url.pathComponents;
   
   RouterParams *openParams = nil;
   for (NSString *routerUrl in self.routes.allKeys) {
     UPRouterOptions *routerOptions = (UPRouterOptions *)[self.routes objectForKey:routerUrl];
-    NSArray *routerParts = [routerUrl componentsSeparatedByString:@"/"];
+    NSArray *routerParts = routerUrl.pathComponents;
     
     if (routerParts.count != givenParts.count) {
       continue;
