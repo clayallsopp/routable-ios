@@ -255,7 +255,13 @@ typedef void (^RouterOpenCallback)(NSDictionary *params);
  @exception NavigationControllerNotProvided Thrown if url opens a `UIViewController` and navigationController has not been assigned
  @exception RoutableInitializerNotFound Thrown if the mapped `UIViewController` instance does not implement -initWithRouterParams: or +allocWithRouterParams:
  */
- - (void)open:(NSString *)url animated:(BOOL)animated;
+- (void)open:(NSString *)url animated:(BOOL)animated;
+
+/**
+ Get params of a given URL, simply return the params dictionary NOT using a block
+ @param url The URL being detected (i.e. "users/16")
+ */
+- (NSDictionary*)paramsOfUrl:(NSString*)url;
 
 @end
 

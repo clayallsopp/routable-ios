@@ -233,6 +233,11 @@
   }
 }
 
+- (NSDictionary*)paramsOfUrl:(NSString*)url{
+    RouterParams *params = [self routerParamsForUrl:url];
+    return [params getControllerParams];
+}
+
 - (void)pop {
   [self pop:YES];
 }
