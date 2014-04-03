@@ -12,6 +12,7 @@
 @interface UserController : UIViewController
 
 @property (readwrite, nonatomic, copy) NSString *userId;
+@property (readwrite, nonatomic, copy) NSString *userName;
 
 - (id)initWithRouterParams:(NSDictionary *)params;
 @end
@@ -21,6 +22,7 @@
 - (id)initWithRouterParams:(NSDictionary *)params {
   if ((self = [self initWithNibName:nil bundle:nil])) {
     self.userId = [params objectForKey:@"user_id"];
+    self.userName = [params objectForKey:@"user_name"];
   }
   return self;
 }
@@ -50,6 +52,7 @@
 @end
 
 #define USER_ID [(UserController *)self.router.navigationController.topViewController userId]
+#define USER_NAME [(UserController *)self.router.navigationController.topViewController userName]
 #define STATIC_USER_ID [(StaticController *)self.router.navigationController.topViewController userId]
 
 @implementation RoutableTests
@@ -76,6 +79,28 @@
   [self.router open:@"users/4"];
   
   STAssertTrue([USER_ID isEqualToString:@"4"], @"Should have an ID of 4");
+}
+
+- (void)test_basicRouteWithMultipleComponents {
+    [self.router map:@"users/:user_id/:user_name" toController:[UserController class]];
+    
+    [self.router open:@"users/4/clay"];
+    
+    STAssertTrue([USER_ID isEqualToString:@"4"], @"Should have an ID of 4");
+    STAssertTrue([USER_NAME isEqualToString:@"clay"], @"Name should be Clay");
+}
+
+- (void)test_basicRouteWithEmptyComponents {
+    [self.router map:@"users/:user_id/:user_name" toController:[UserController class]];
+    
+    [self.router open:@"users//clay"];
+    
+    STAssertTrue([USER_ID isEqualToString:@""], @"Should have an empty ID");
+    STAssertTrue([USER_NAME isEqualToString:@"clay"], @"Name should be Clay");
+
+    [self.router open:@"users/ /clay"];
+    STAssertTrue([USER_ID isEqualToString:@" "], @"Should have an empty ID");
+    STAssertTrue([USER_NAME isEqualToString:@"clay"], @"Name should be Clay");
 }
 
 - (void)test_emptyRoute {

@@ -259,6 +259,11 @@
   }
   
   NSArray *givenParts = url.pathComponents;
+  NSArray *legacyParts = [url componentsSeparatedByString:@"/"];
+  if ([legacyParts count] != [givenParts count]) {
+    NSLog(@"Routable Warning - your URL %@ has empty path components - this will throw an error in an upcoming release", url);
+    givenParts = legacyParts;
+  }
   
   RouterParams *openParams = nil;
   for (NSString *routerUrl in self.routes.allKeys) {
