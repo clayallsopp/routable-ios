@@ -29,7 +29,6 @@
   [modal setTitle:@"Modal" forState:UIControlStateNormal];
   [modal addTarget:self action:@selector(tapped:) forControlEvents:UIControlEventTouchUpInside];
   [modal sizeToFit];
-  [modal setFrame:CGRectMake(0, self.view.bounds.size.height - modal.frame.size.height, modal.frame.size.width, modal.frame.size.height)];
 
   [self.view addSubview:modal];
 }
@@ -60,13 +59,14 @@
   [modal setTitle:@"Close" forState:UIControlStateNormal];
   [modal addTarget:self action:@selector(tapped:) forControlEvents:UIControlEventTouchUpInside];
   [modal sizeToFit];
-  
+
   [self.view addSubview:modal];
 
   UIButton *user = [UIButton buttonWithType:UIButtonTypeRoundedRect];
   [user setTitle:@"User" forState:UIControlStateNormal];
   [user addTarget:self action:@selector(tappedUser:) forControlEvents:UIControlEventTouchUpInside];
   [user sizeToFit];
+  [modal setFrame:CGRectMake(0, self.view.bounds.size.height - modal.frame.size.height, modal.frame.size.width, modal.frame.size.height)];
 
   [self.view addSubview:user];
 }
