@@ -140,19 +140,19 @@
 
 //Exposed methods previously supported
 + (instancetype)modal {
-  return [UPRouterOptions routerOptionsAsModal];
+  return [self routerOptionsAsModal];
 }
 + (instancetype)withPresentationStyle:(UIModalPresentationStyle)style {
-  return [UPRouterOptions routerOptionsWithPresentationStyle:style];
+  return [self routerOptionsWithPresentationStyle:style];
 }
 + (instancetype)withTransitionStyle:(UIModalTransitionStyle)style {
-  return [UPRouterOptions routerOptionsWithTransitionStyle:style];
+  return [self routerOptionsWithTransitionStyle:style];
 }
 + (instancetype)forDefaultParams:(NSDictionary *)defaultParams {
-  return [UPRouterOptions routerOptionsForDefaultParams:defaultParams];
+  return [self routerOptionsForDefaultParams:defaultParams];
 }
 + (instancetype)root {
-  return [UPRouterOptions routerOptionsAsRoot];
+  return [self routerOptionsAsRoot];
 }
 
 //Wrappers around setters (to continue DSL-like syntax)
@@ -385,7 +385,6 @@
    }];
   return params;
 }
-
 
 - (UIViewController *)controllerForRouterParams:(RouterParams *)params {
   SEL CONTROLLER_CLASS_SELECTOR = sel_registerName("allocWithRouterParams:");
