@@ -47,11 +47,11 @@ typedef void (^RouterOpenCallback)(NSDictionary *params);
  Now, you can also use an Objective-C factory method to set everything at once
  
  ```
- UPRouterOptions *options = [[UPRouterOptions alloc] initWithPresentationStyle: UIModalPresentationFormSheet
-                                                               transitionStyle: UIModalTransitionFormSheet
-                                                                 defaultParams: nil
-                                                                        asRoot: NO
-                                                                       asModal: YES];
+ UPRouterOptions *options = [UPRouterOptions routerOptionsWithPresentationStyle: UIModalPresentationFormSheet
+                                                                transitionStyle: UIModalTransitionFormSheet
+                                                                  defaultParams: nil
+                                                                         isRoot: NO
+                                                                        isModal: YES];
  ```
  
  Or, for most properties taking the default value:

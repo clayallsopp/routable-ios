@@ -29,7 +29,7 @@
 
 + (instancetype)sharedRouter {
     static Routable *_sharedRouter = nil;
-    static dispatch_once_t onceToken = 0;
+    static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         _sharedRouter = [[Routable alloc] init];
     });
@@ -64,7 +64,7 @@
     [controllerParams addEntriesFromDictionary:self.openParams];
     return controllerParams;
 }
-//fake getter; not idiomatic for Objective-C; consider deprecating. Use weak getter controllerParams instead
+//fake getter. Not idiomatic Objective-C. Use accessor controllerParams instead
 - (NSDictionary *)getControllerParams {
     return [self controllerParams];
 }
@@ -78,7 +78,7 @@
 
 @implementation UPRouterOptions
 
-//Suggested explicit construction to use
+//Explicit construction
 + (instancetype)routerOptionsWithPresentationStyle: (UIModalPresentationStyle)presentationStyle
                                    transitionStyle: (UIModalTransitionStyle)transitionStyle
                                      defaultParams: (NSDictionary *)defaultParams
@@ -92,7 +92,7 @@
     options.modal = isModal;
     return options;
 }
-//Give a default construction; like [NSArray array]
+//Default construction; like [NSArray array]
 + (instancetype)routerOptions {
     return [self routerOptionsWithPresentationStyle:UIModalPresentationNone
                                                transitionStyle:UIModalTransitionStyleCoverVertical
@@ -101,7 +101,7 @@
                                                        isModal:NO];
 }
 
-//Other custom class constructors, with heavier Objective-C accent
+//Custom class constructors, with heavier Objective-C accent
 + (instancetype)routerOptionsAsModal {
     return [self routerOptionsWithPresentationStyle:UIModalPresentationNone
                                                transitionStyle:UIModalTransitionStyleCoverVertical
@@ -287,13 +287,11 @@
                                                   completion:nil];
         }
     }
+    else if (options.shouldOpenAsRootViewController) {
+        [self.navigationController setViewControllers:@[controller] animated:animated];
+    }
     else {
-        if (options.shouldOpenAsRootViewController) {
-            [self.navigationController setViewControllers:@[controller] animated:animated];
-        }
-        else {
-            [self.navigationController pushViewController:controller animated:animated];
-        }
+        [self.navigationController pushViewController:controller animated:animated];
     }
 }
 
