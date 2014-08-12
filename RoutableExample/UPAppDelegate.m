@@ -66,7 +66,7 @@
   [user setTitle:@"User" forState:UIControlStateNormal];
   [user addTarget:self action:@selector(tappedUser:) forControlEvents:UIControlEventTouchUpInside];
   [user sizeToFit];
-  [modal setFrame:CGRectMake(0, self.view.bounds.size.height - modal.frame.size.height, modal.frame.size.width, modal.frame.size.height)];
+  [user setFrame:CGRectMake(modal.frame.size.width, 0, user.frame.size.width, user.frame.size.width)];
 
   [self.view addSubview:user];
 }
