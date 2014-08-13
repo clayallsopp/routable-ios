@@ -373,12 +373,11 @@
    ^(NSString *routerComponent, NSUInteger idx, BOOL *stop) {
      
      NSString *givenComponent = givenUrlComponents[idx];
-     if ([[routerComponent substringToIndex:1] isEqualToString:@":"]) {
+     if ([routerComponent hasPrefix:@":"]) {
        NSString *key = [routerComponent substringFromIndex:1];
        [params setObject:givenComponent forKey:key];
      }
-     
-     if (![routerComponent isEqualToString:givenComponent]) {
+     else if (![routerComponent isEqualToString:givenComponent]) {
        params = nil;
        *stop = YES;
      }
