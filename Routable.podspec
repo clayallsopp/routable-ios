@@ -1,5 +1,5 @@
 Pod::Spec.new do |s|
-  version = "0.0.7"
+  version = "0.1.0"
   s.name         = "Routable"
   s.version      = version
   s.summary      = "A native in-app URL router for iOS."
