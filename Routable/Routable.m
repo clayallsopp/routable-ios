@@ -312,7 +312,7 @@
   [self popViewControllerFromRouterAnimated:YES];
 }
 - (void)pop:(BOOL)animated {
-  [self popViewControllerFromRouterAnimated:YES];
+  [self popViewControllerFromRouterAnimated:animated];
 }
 
 ///////
