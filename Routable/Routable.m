@@ -255,7 +255,7 @@
 
 - (void)open:(NSString *)url
     animated:(BOOL)animated
-extraParams:(NSDictionary *)extraParams
+ extraParams:(NSDictionary *)extraParams
 {
   RouterParams *params = [self routerParamsForUrl:url extraParams: extraParams];
   UPRouterOptions *options = params.routerOptions;
@@ -326,56 +326,56 @@ extraParams:(NSDictionary *)extraParams
 
 ///////
 - (RouterParams *)routerParamsForUrl:(NSString *)url extraParams: (NSDictionary *)extraParams {
-    if (!url) {
-      //if we wait, caching this as key would throw an exception
-      if (_ignoresExceptions) {
-        return nil;
-      }
-      @throw [NSException exceptionWithName:@"RouteNotFoundException"
-                                     reason:[NSString stringWithFormat:ROUTE_NOT_FOUND_FORMAT, url]
-                                   userInfo:nil];
+  if (!url) {
+    //if we wait, caching this as key would throw an exception
+    if (_ignoresExceptions) {
+      return nil;
     }
+    @throw [NSException exceptionWithName:@"RouteNotFoundException"
+                                   reason:[NSString stringWithFormat:ROUTE_NOT_FOUND_FORMAT, url]
+                                 userInfo:nil];
+  }
   
-    if ([self.cachedRoutes objectForKey:url]) {
-      return [self.cachedRoutes objectForKey:url];
-    }
+  if ([self.cachedRoutes objectForKey:url]) {
+    return [self.cachedRoutes objectForKey:url];
+  }
   
-    NSArray *givenParts = url.pathComponents;
-    NSArray *legacyParts = [url componentsSeparatedByString:@"/"];
-    if ([legacyParts count] != [givenParts count]) {
-      NSLog(@"Routable Warning - your URL %@ has empty path components - this will throw an error in an upcoming release", url);
-      givenParts = legacyParts;
-    }
+  NSArray *givenParts = url.pathComponents;
+  NSArray *legacyParts = [url componentsSeparatedByString:@"/"];
+  if ([legacyParts count] != [givenParts count]) {
+    NSLog(@"Routable Warning - your URL %@ has empty path components - this will throw an error in an upcoming release", url);
+    givenParts = legacyParts;
+  }
   
-    __block RouterParams *openParams = nil;
-    [self.routes enumerateKeysAndObjectsUsingBlock:
-     ^(NSString *routerUrl, UPRouterOptions *routerOptions, BOOL *stop) {
+  __block RouterParams *openParams = nil;
+  [self.routes enumerateKeysAndObjectsUsingBlock:
+   ^(NSString *routerUrl, UPRouterOptions *routerOptions, BOOL *stop) {
      
-       NSArray *routerParts = [routerUrl pathComponents];
-       if ([routerParts count] == [givenParts count]) {
+     NSArray *routerParts = [routerUrl pathComponents];
+     if ([routerParts count] == [givenParts count]) {
        
-         NSDictionary *givenParams = [self paramsForUrlComponents:givenParts routerUrlComponents:routerParts];
-         if (givenParams) {
-           openParams = [[RouterParams alloc] initWithRouterOptions:routerOptions openParams:givenParams extraParams: extraParams];
-           *stop = YES;
-         }
+       NSDictionary *givenParams = [self paramsForUrlComponents:givenParts routerUrlComponents:routerParts];
+       if (givenParams) {
+         openParams = [[RouterParams alloc] initWithRouterOptions:routerOptions openParams:givenParams extraParams: extraParams];
+         *stop = YES;
        }
-     }];
+     }
+   }];
   
-    if (!openParams) {
-      if (_ignoresExceptions) {
-        return nil;
-      }
-      @throw [NSException exceptionWithName:@"RouteNotFoundException"
-                                     reason:[NSString stringWithFormat:ROUTE_NOT_FOUND_FORMAT, url]
-                                   userInfo:nil];
+  if (!openParams) {
+    if (_ignoresExceptions) {
+      return nil;
     }
-    [self.cachedRoutes setObject:openParams forKey:url];
-    return openParams;	
+    @throw [NSException exceptionWithName:@"RouteNotFoundException"
+                                   reason:[NSString stringWithFormat:ROUTE_NOT_FOUND_FORMAT, url]
+                                 userInfo:nil];
+  }
+  [self.cachedRoutes setObject:openParams forKey:url];
+  return openParams;
 }
 
 - (RouterParams *)routerParamsForUrl:(NSString *)url {
-	return [self routerParamsForUrl:url extraParams: nil];
+  return [self routerParamsForUrl:url extraParams: nil];
 }
 
 - (NSDictionary *)paramsForUrlComponents:(NSArray *)givenUrlComponents
