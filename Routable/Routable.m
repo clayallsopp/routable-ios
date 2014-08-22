@@ -47,20 +47,23 @@
 
 @property (readwrite, nonatomic, strong) UPRouterOptions *routerOptions;
 @property (readwrite, nonatomic, strong) NSDictionary *openParams;
+@property (readwrite, nonatomic, strong) NSDictionary *extraParams;
 @property (readwrite, nonatomic, strong) NSDictionary *controllerParams;
 
 @end
 
 @implementation RouterParams
 
-- (instancetype)initWithRouterOptions: (UPRouterOptions *)routerOptions openParams: (NSDictionary *)openParams {
+- (instancetype)initWithRouterOptions: (UPRouterOptions *)routerOptions openParams: (NSDictionary *)openParams extraParams: (NSDictionary *)extraParams{
   [self setRouterOptions:routerOptions];
+  [self setExtraParams: extraParams];
   [self setOpenParams:openParams];
   return self;
 }
 
 - (NSDictionary *)controllerParams {
   NSMutableDictionary *controllerParams = [NSMutableDictionary dictionaryWithDictionary:self.routerOptions.defaultParams];
+  [controllerParams addEntriesFromDictionary:self.extraParams];
   [controllerParams addEntriesFromDictionary:self.openParams];
   return controllerParams;
 }
@@ -247,7 +250,14 @@
 }
 
 - (void)open:(NSString *)url animated:(BOOL)animated {
-  RouterParams *params = [self routerParamsForUrl:url];
+  [self open:url animated:animated extraParams:nil];
+}
+
+- (void)open:(NSString *)url
+    animated:(BOOL)animated
+extraParams:(NSDictionary *)extraParams
+{
+  RouterParams *params = [self routerParamsForUrl:url extraParams: extraParams];
   UPRouterOptions *options = params.routerOptions;
   
   if (options.callback) {
@@ -294,7 +304,6 @@
     [self.navigationController pushViewController:controller animated:animated];
   }
 }
-
 - (NSDictionary*)paramsOfUrl:(NSString*)url {
   return [[self routerParamsForUrl:url] controllerParams];
 }
@@ -316,53 +325,57 @@
 }
 
 ///////
-- (RouterParams *)routerParamsForUrl:(NSString *)url {
-  if (!url) {
-    //if we wait, caching this as key would throw an exception
-    if (_ignoresExceptions) {
-      return nil;
+- (RouterParams *)routerParamsForUrl:(NSString *)url extraParams: (NSDictionary *)extraParams {
+    if (!url) {
+      //if we wait, caching this as key would throw an exception
+      if (_ignoresExceptions) {
+        return nil;
+      }
+      @throw [NSException exceptionWithName:@"RouteNotFoundException"
+                                     reason:[NSString stringWithFormat:ROUTE_NOT_FOUND_FORMAT, url]
+                                   userInfo:nil];
     }
-    @throw [NSException exceptionWithName:@"RouteNotFoundException"
-                                   reason:[NSString stringWithFormat:ROUTE_NOT_FOUND_FORMAT, url]
-                                 userInfo:nil];
-  }
   
-  if ([self.cachedRoutes objectForKey:url]) {
-    return [self.cachedRoutes objectForKey:url];
-  }
+    if ([self.cachedRoutes objectForKey:url]) {
+      return [self.cachedRoutes objectForKey:url];
+    }
   
-  NSArray *givenParts = url.pathComponents;
-  NSArray *legacyParts = [url componentsSeparatedByString:@"/"];
-  if ([legacyParts count] != [givenParts count]) {
-    NSLog(@"Routable Warning - your URL %@ has empty path components - this will throw an error in an upcoming release", url);
-    givenParts = legacyParts;
-  }
+    NSArray *givenParts = url.pathComponents;
+    NSArray *legacyParts = [url componentsSeparatedByString:@"/"];
+    if ([legacyParts count] != [givenParts count]) {
+      NSLog(@"Routable Warning - your URL %@ has empty path components - this will throw an error in an upcoming release", url);
+      givenParts = legacyParts;
+    }
   
-  __block RouterParams *openParams = nil;
-  [self.routes enumerateKeysAndObjectsUsingBlock:
-   ^(NSString *routerUrl, UPRouterOptions *routerOptions, BOOL *stop) {
+    __block RouterParams *openParams = nil;
+    [self.routes enumerateKeysAndObjectsUsingBlock:
+     ^(NSString *routerUrl, UPRouterOptions *routerOptions, BOOL *stop) {
      
-     NSArray *routerParts = [routerUrl pathComponents];
-     if ([routerParts count] == [givenParts count]) {
+       NSArray *routerParts = [routerUrl pathComponents];
+       if ([routerParts count] == [givenParts count]) {
        
-       NSDictionary *givenParams = [self paramsForUrlComponents:givenParts routerUrlComponents:routerParts];
-       if (givenParams) {
-         openParams = [[RouterParams alloc] initWithRouterOptions:routerOptions openParams:givenParams];
-         *stop = YES;
+         NSDictionary *givenParams = [self paramsForUrlComponents:givenParts routerUrlComponents:routerParts];
+         if (givenParams) {
+           openParams = [[RouterParams alloc] initWithRouterOptions:routerOptions openParams:givenParams extraParams: extraParams];
+           *stop = YES;
+         }
        }
-     }
-   }];
+     }];
   
-  if (!openParams) {
-    if (_ignoresExceptions) {
-      return nil;
+    if (!openParams) {
+      if (_ignoresExceptions) {
+        return nil;
+      }
+      @throw [NSException exceptionWithName:@"RouteNotFoundException"
+                                     reason:[NSString stringWithFormat:ROUTE_NOT_FOUND_FORMAT, url]
+                                   userInfo:nil];
     }
-    @throw [NSException exceptionWithName:@"RouteNotFoundException"
-                                   reason:[NSString stringWithFormat:ROUTE_NOT_FOUND_FORMAT, url]
-                                 userInfo:nil];
-  }
-  [self.cachedRoutes setObject:openParams forKey:url];
-  return openParams;
+    [self.cachedRoutes setObject:openParams forKey:url];
+    return openParams;	
+}
+
+- (RouterParams *)routerParamsForUrl:(NSString *)url {
+	return [self routerParamsForUrl:url extraParams: nil];
 }
 
 - (NSDictionary *)paramsForUrlComponents:(NSArray *)givenUrlComponents
