@@ -61,7 +61,7 @@ Set `ignoresExceptions` to `YES` to NOT throw exceptions (suggested for a Releas
 ### [CocoaPods](http://cocoapods.org/)
 
 ```ruby
-pod 'Routable', '~> 0.0.4'
+pod 'Routable', '~> 0.1.1'
 ```
 
 ```objective-c
