@@ -1,4 +1,5 @@
-# Routable
+
+# Routable [![Build Status](https://travis-ci.org/clayallsopp/routable-ios.svg)](https://travis-ci.org/clayallsopp/routable-ios)
 
 Routable is an in-app native URL router, for iOS. Also available for [Android](https://github.com/usepropeller/routable-android).
 
