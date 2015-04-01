@@ -78,13 +78,27 @@
 
 @implementation UPRouterOptions
 
+//Backwards compatibility
++ (instancetype)routerOptionsWithPresentationStyle: (UIModalPresentationStyle)presentationStyle
+                                   transitionStyle: (UIModalTransitionStyle)transitionStyle
+                                     defaultParams: (NSDictionary *)defaultParams
+                                            isRoot: (BOOL)isRoot
+                                           isModal: (BOOL)isModal
+{
+    return [self routerOptionsWithPresentationStyle:presentationStyle
+                                    transitionStyle:transitionStyle
+                                      defaultParams:defaultParams
+                                             isRoot:isRoot
+                                            isModal:isModal
+               shouldDismissPresentedViewController:YES];
+}
 //Explicit construction
 + (instancetype)routerOptionsWithPresentationStyle: (UIModalPresentationStyle)presentationStyle
                                    transitionStyle: (UIModalTransitionStyle)transitionStyle
                                      defaultParams: (NSDictionary *)defaultParams
                                             isRoot: (BOOL)isRoot
                                            isModal: (BOOL)isModal
-              shouldDismissPresentedViewController:(BOOL)shouldDismissPresentedViewController
+              shouldDismissPresentedViewController: (BOOL)shouldDismissPresentedViewController
 {
   UPRouterOptions *options = [[UPRouterOptions alloc] init];
   options.presentationStyle = presentationStyle;

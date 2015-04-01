@@ -71,7 +71,20 @@ typedef void (^RouterOpenCallback)(NSDictionary *params);
  @param defaultParams The default parameters which are passed when opening the URL
  @param isRoot The boolean `shouldOpenAsRootViewController` property is set to
  @param isModal The boolean that sets a modal presentation format
- @param shouldDismissPresentedViewController The boolean inidicating wheter an already existing presentedViewController should be dismissed before presenting a new one
+ */
++ (instancetype)routerOptionsWithPresentationStyle: (UIModalPresentationStyle)presentationStyle
+                                   transitionStyle: (UIModalTransitionStyle)transitionStyle
+                                     defaultParams: (NSDictionary *)defaultParams
+                                            isRoot: (BOOL)isRoot
+                                           isModal: (BOOL)isModal;
+/**
+ @return A new instance of `UPRouterOptions` with its properties explicitly set
+ @param presentationStyle The `UIModalPresentationStyle` attached to the mapped `UIViewController`
+ @param transitionStyle The `UIModalTransitionStyle` attached to the mapped `UIViewController`
+ @param defaultParams The default parameters which are passed when opening the URL
+ @param isRoot The boolean `shouldOpenAsRootViewController` property is set to
+ @param isModal The boolean that sets a modal presentation format
+ @param shouldDismissPresentedViewController The boolean indicating whether an already existing presentedViewController should be dismissed before presenting a new one
  */
 + (instancetype)routerOptionsWithPresentationStyle: (UIModalPresentationStyle)presentationStyle
                                    transitionStyle: (UIModalTransitionStyle)transitionStyle
