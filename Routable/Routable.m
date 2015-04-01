@@ -298,9 +298,15 @@
   
   if ([options isModal]) {
     if ([controller.class isSubclassOfClass:UINavigationController.class]) {
-      [self.navigationController presentViewController:controller
-                                              animated:animated
-                                            completion:nil];
+        UIViewController* controllerToPresentOn = self.navigationController;
+        
+        if (self.navigationController.presentedViewController) {
+            controllerToPresentOn = self.navigationController.presentedViewController;
+        }
+        
+        [controllerToPresentOn presentViewController:controller
+                                            animated:animated
+                                          completion:nil];
     }
     else {
       UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:controller];
