@@ -200,7 +200,7 @@
 			name = RoutableTests;
 			productName = RoutableTests;
 			productReference = F86EF9E4170C3C7B00EB726A /* RoutableTests.octest */;
-			productType = "com.apple.product-type.bundle";
+			productType = "com.apple.product-type.bundle.ocunit-test";
 		};
 /* End PBXNativeTarget section */
 
@@ -209,6 +209,7 @@
 			isa = PBXProject;
 			attributes = {
 				CLASSPREFIX = UP;
+				LastTestingUpgradeCheck = 0630;
 				LastUpgradeCheck = 0460;
 				ORGANIZATIONNAME = "TurboProp Inc";
 			};
