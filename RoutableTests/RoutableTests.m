@@ -78,7 +78,7 @@
   
   [self.router open:@"users/4"];
   
-  STAssertTrue([USER_ID isEqualToString:@"4"], @"Should have an ID of 4");
+  XCTAssertTrue([USER_ID isEqualToString:@"4"], @"Should have an ID of 4");
 }
 
 - (void)test_basicRouteWithMultipleComponents {
@@ -86,8 +86,8 @@
     
     [self.router open:@"users/4/clay"];
     
-    STAssertTrue([USER_ID isEqualToString:@"4"], @"Should have an ID of 4");
-    STAssertTrue([USER_NAME isEqualToString:@"clay"], @"Name should be Clay");
+    XCTAssertTrue([USER_ID isEqualToString:@"4"], @"Should have an ID of 4");
+    XCTAssertTrue([USER_NAME isEqualToString:@"clay"], @"Name should be Clay");
 }
 
 - (void)test_basicRouteWithEmptyComponents {
@@ -95,12 +95,12 @@
     
     [self.router open:@"users//clay"];
     
-    STAssertTrue([USER_ID isEqualToString:@""], @"Should have an empty ID");
-    STAssertTrue([USER_NAME isEqualToString:@"clay"], @"Name should be Clay");
+    XCTAssertTrue([USER_ID isEqualToString:@""], @"Should have an empty ID");
+    XCTAssertTrue([USER_NAME isEqualToString:@"clay"], @"Name should be Clay");
 
     [self.router open:@"users/ /clay"];
-    STAssertTrue([USER_ID isEqualToString:@" "], @"Should have an empty ID");
-    STAssertTrue([USER_NAME isEqualToString:@"clay"], @"Name should be Clay");
+    XCTAssertTrue([USER_ID isEqualToString:@" "], @"Should have an empty ID");
+    XCTAssertTrue([USER_NAME isEqualToString:@"clay"], @"Name should be Clay");
 }
 
 - (void)test_emptyRoute {
@@ -108,18 +108,18 @@
   
   [self.router open:@"users"];
   
-  STAssertNil(USER_ID, @"The user id should be nil, not %@", USER_ID);
+  XCTAssertNil(USER_ID, @"The user id should be nil, not %@", USER_ID);
 }
 
 - (void)test_invalidRoute {
-  STAssertThrows([self.router open:@"users"], @"Should throw an exception when route not mapped");
+  XCTAssertThrows([self.router open:@"users"], @"Should throw an exception when route not mapped");
 }
 
 - (void)test_noNavigationController {
   [self.router map:@"users" toController:[UserController class]];
 
   self.router.navigationController = nil;
-  STAssertThrows([self.router open:@"users"], @"Should throw an exception when there is no navigation controller");
+  XCTAssertThrows([self.router open:@"users"], @"Should throw an exception when there is no navigation controller");
 }
 
 - (void)test_callbacks {
@@ -130,7 +130,7 @@
   
   [self.router open:@"users"];
   
-  STAssertTrue(called, @"Callback block should have been called");
+  XCTAssertTrue(called, @"Callback block should have been called");
 }
 
 - (void)test_callbacksWithParams {
@@ -143,8 +143,8 @@
   
   [self.router open:@"users/4"];
   
-  STAssertTrue(called, @"Callback block should have been called");
-  STAssertTrue([userId isEqualToString:@"4"], @"Callback should have correct id param; was %@", userId);
+  XCTAssertTrue(called, @"Callback block should have been called");
+  XCTAssertTrue([userId isEqualToString:@"4"], @"Callback should have correct id param; was %@", userId);
 }
 
 - (void)test_defaultParamsWithCallback {
@@ -156,7 +156,7 @@
   
   [self.router open:@"users"];
   
-  STAssertTrue([userId isEqualToString:@"4"], @"Callback should have correct id param; was %@", userId);
+  XCTAssertTrue([userId isEqualToString:@"4"], @"Callback should have correct id param; was %@", userId);
 }
 
 - (void)test_staticRoute {  
@@ -164,14 +164,14 @@
   
   [self.router open:@"users/4"];
   
-  STAssertTrue([self.router.navigationController.topViewController isKindOfClass:[StaticController class]], @"Should be an instance of StaticController");
-  STAssertTrue([STATIC_USER_ID isEqualToString:@"4"], @"Should have an ID of 4");  
+  XCTAssertTrue([self.router.navigationController.topViewController isKindOfClass:[StaticController class]], @"Should be an instance of StaticController");
+  XCTAssertTrue([STATIC_USER_ID isEqualToString:@"4"], @"Should have an ID of 4");  
 }
 
 - (void)test_noInitializers {
   [self.router map:@"routable" toController:[UIViewController class]];
   
-  STAssertThrows([self.router open:@"routable"], @"Should throw an exception when no initializer found");
+  XCTAssertThrows([self.router open:@"routable"], @"Should throw an exception when no initializer found");
 }
 
 - (void)test_openAsRoot {
@@ -179,8 +179,8 @@
     
     [self.router open:@"users/4"];
     
-    STAssertTrue([self.router.navigationController.viewControllers[0] isKindOfClass:[UserController class]], @"Should be an instance of UserController");
-    STAssertTrue(self.router.navigationController.viewControllers.count == 1, @"Navigation controller should only have 1 view controller in its stack");
+    XCTAssertTrue([self.router.navigationController.viewControllers[0] isKindOfClass:[UserController class]], @"Should be an instance of UserController");
+    XCTAssertTrue(self.router.navigationController.viewControllers.count == 1, @"Navigation controller should only have 1 view controller in its stack");
 }
 
 @end
