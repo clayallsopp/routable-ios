@@ -335,7 +335,7 @@
                                  userInfo:nil];
   }
   
-  if ([self.cachedRoutes objectForKey:url]) {
+  if ([self.cachedRoutes objectForKey:url] && !extraParams) {
     return [self.cachedRoutes objectForKey:url];
   }
   
