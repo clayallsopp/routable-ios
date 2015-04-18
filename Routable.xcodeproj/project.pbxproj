@@ -37,7 +37,7 @@
 		F86EF9C7170C3C7B00EB726A /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		F86EF9C9170C3C7B00EB726A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		F86EF9CB170C3C7B00EB726A /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
-		F86EF9E4170C3C7B00EB726A /* RoutableTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RoutableTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
+		F86EF9E4170C3C7B00EB726A /* RoutableTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RoutableTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F86EF9ED170C3C7B00EB726A /* RoutableTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "RoutableTests-Info.plist"; sourceTree = "<group>"; };
 		F86EF9EF170C3C7B00EB726A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		F86EF9F1170C3C7B00EB726A /* RoutableTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RoutableTests.h; sourceTree = "<group>"; };
@@ -92,7 +92,7 @@
 			isa = PBXGroup;
 			children = (
 				F86EF9C4170C3C7B00EB726A /* Routable.app */,
-				F86EF9E4170C3C7B00EB726A /* RoutableTests.octest */,
+				F86EF9E4170C3C7B00EB726A /* RoutableTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -195,7 +195,7 @@
 			);
 			name = RoutableTests;
 			productName = RoutableTests;
-			productReference = F86EF9E4170C3C7B00EB726A /* RoutableTests.octest */;
+			productReference = F86EF9E4170C3C7B00EB726A /* RoutableTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
