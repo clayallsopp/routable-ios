@@ -125,7 +125,8 @@
   XCTAssertTrue([USER_ID isEqualToString:@""], @"Should have an empty ID");
   XCTAssertTrue([USER_NAME isEqualToString:@"clay"], @"Name should be Clay");
   
-  [self.router open:@"users/ /clay"];
+  // animated:YES fails on iOS 8, see https://github.com/clayallsopp/routable-ios/issues/35
+  [self.router open:@"users/ /clay" animated:NO];
   XCTAssertTrue([USER_ID isEqualToString:@" "], @"Should have an empty ID");
   XCTAssertTrue([USER_NAME isEqualToString:@"clay"], @"Name should be Clay");
 }
@@ -217,7 +218,8 @@
   
   XCTAssertTrue([USER_ID isEqualToString:@"4"]);
   
-  [self.router open:@"users/3"];
+  // animated:YES fails on iOS 8, see https://github.com/clayallsopp/routable-ios/issues/35
+  [self.router open:@"users/3" animated:NO];
   
   XCTAssertTrue([USER_ID isEqualToString:@"3"], @"Should have param 3, was %@", USER_ID);
   
