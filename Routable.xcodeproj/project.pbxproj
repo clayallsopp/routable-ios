@@ -10,7 +10,6 @@
 		F86EF9C8170C3C7B00EB726A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F86EF9C7170C3C7B00EB726A /* UIKit.framework */; };
 		F86EF9CA170C3C7B00EB726A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F86EF9C9170C3C7B00EB726A /* Foundation.framework */; };
 		F86EF9CC170C3C7B00EB726A /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F86EF9CB170C3C7B00EB726A /* CoreGraphics.framework */; };
-		F86EF9E6170C3C7B00EB726A /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F86EF9E5170C3C7B00EB726A /* SenTestingKit.framework */; };
 		F86EF9E7170C3C7B00EB726A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F86EF9C7170C3C7B00EB726A /* UIKit.framework */; };
 		F86EF9E8170C3C7B00EB726A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F86EF9C9170C3C7B00EB726A /* Foundation.framework */; };
 		F86EF9F0170C3C7B00EB726A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = F86EF9EE170C3C7B00EB726A /* InfoPlist.strings */; };
@@ -38,8 +37,7 @@
 		F86EF9C7170C3C7B00EB726A /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		F86EF9C9170C3C7B00EB726A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		F86EF9CB170C3C7B00EB726A /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
-		F86EF9E4170C3C7B00EB726A /* RoutableTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RoutableTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
-		F86EF9E5170C3C7B00EB726A /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
+		F86EF9E4170C3C7B00EB726A /* RoutableTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RoutableTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F86EF9ED170C3C7B00EB726A /* RoutableTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "RoutableTests-Info.plist"; sourceTree = "<group>"; };
 		F86EF9EF170C3C7B00EB726A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		F86EF9F1170C3C7B00EB726A /* RoutableTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RoutableTests.h; sourceTree = "<group>"; };
@@ -71,7 +69,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F86EF9E6170C3C7B00EB726A /* SenTestingKit.framework in Frameworks */,
 				F86EF9E7170C3C7B00EB726A /* UIKit.framework in Frameworks */,
 				F86EF9E8170C3C7B00EB726A /* Foundation.framework in Frameworks */,
 			);
@@ -95,7 +92,7 @@
 			isa = PBXGroup;
 			children = (
 				F86EF9C4170C3C7B00EB726A /* Routable.app */,
-				F86EF9E4170C3C7B00EB726A /* RoutableTests.octest */,
+				F86EF9E4170C3C7B00EB726A /* RoutableTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -106,7 +103,6 @@
 				F86EF9C7170C3C7B00EB726A /* UIKit.framework */,
 				F86EF9C9170C3C7B00EB726A /* Foundation.framework */,
 				F86EF9CB170C3C7B00EB726A /* CoreGraphics.framework */,
-				F86EF9E5170C3C7B00EB726A /* SenTestingKit.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -199,8 +195,8 @@
 			);
 			name = RoutableTests;
 			productName = RoutableTests;
-			productReference = F86EF9E4170C3C7B00EB726A /* RoutableTests.octest */;
-			productType = "com.apple.product-type.bundle";
+			productReference = F86EF9E4170C3C7B00EB726A /* RoutableTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
 
@@ -209,6 +205,7 @@
 			isa = PBXProject;
 			attributes = {
 				CLASSPREFIX = UP;
+				LastTestingUpgradeCheck = 0630;
 				LastUpgradeCheck = 0460;
 				ORGANIZATIONNAME = "TurboProp Inc";
 			};
@@ -397,6 +394,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"\"$(SDKROOT)/Developer/Library/Frameworks\"",
 					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
+					"$(inherited)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "RoutableExample/Routable-Prefix.pch";
@@ -404,7 +402,6 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = 1;
 				TEST_HOST = "$(BUNDLE_LOADER)";
-				WRAPPER_EXTENSION = octest;
 			};
 			name = Debug;
 		};
@@ -415,6 +412,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"\"$(SDKROOT)/Developer/Library/Frameworks\"",
 					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
+					"$(inherited)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "RoutableExample/Routable-Prefix.pch";
@@ -422,7 +420,6 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = 1;
 				TEST_HOST = "$(BUNDLE_LOADER)";
-				WRAPPER_EXTENSION = octest;
 			};
 			name = Release;
 		};
