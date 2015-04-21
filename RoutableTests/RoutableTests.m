@@ -124,9 +124,13 @@
   
   XCTAssertTrue([USER_ID isEqualToString:@""], @"Should have an empty ID");
   XCTAssertTrue([USER_NAME isEqualToString:@"clay"], @"Name should be Clay");
-  
-  // animated:YES fails on iOS 8, see https://github.com/clayallsopp/routable-ios/issues/35
-  [self.router open:@"users/ /clay" animated:NO];
+}
+
+
+- (void)test_basicRouteWithWhitespaceCompnents {
+  [self.router map:@"users/:user_id/:user_name" toController:[UserController class]];
+
+  [self.router open:@"users/ /clay"];
   XCTAssertTrue([USER_ID isEqualToString:@" "], @"Should have an empty ID");
   XCTAssertTrue([USER_NAME isEqualToString:@"clay"], @"Name should be Clay");
 }
@@ -211,20 +215,6 @@
   XCTAssertTrue(self.router.navigationController.viewControllers.count == 1, @"Navigation controller should only have 1 view controller in its stack");
 }
 
-- (void)test_replaceOldParamWithNew {
-  [self.router map:@"users/:user_id" toController:[UserController class]];
-  
-  [self.router open:@"users/4"];
-  
-  XCTAssertTrue([USER_ID isEqualToString:@"4"]);
-  
-  // animated:YES fails on iOS 8, see https://github.com/clayallsopp/routable-ios/issues/35
-  [self.router open:@"users/3" animated:NO];
-  
-  XCTAssertTrue([USER_ID isEqualToString:@"3"], @"Should have param 3, was %@", USER_ID);
-  
-}
-
 - (void)test_openWithExtraStringParam {
   [self.router map:@"users" toController:[UserController class]];
   
@@ -265,33 +255,6 @@
   [self.router open:@"users" animated:NO extraParams:nil];
   
   XCTAssertNil(USER_EXTRA_PARAM, @"No extra params should be passed if none are specified");
-}
-
-- (void)test_replaceOldExtraParamWithNew {
-  [self.router map:@"users" toController:[UserController class]];
-  
-  ExtraParamObject *epObject = [[ExtraParamObject alloc] initWithNumber:99 andString:@"secretString"];
-  NSDictionary *params = [NSDictionary dictionaryWithObjects:@[epObject] forKeys:@[@"epObject"]];
-  
-  [self.router open:@"users" animated:NO extraParams:params];
-  
-  ExtraParamObject *receivedObject = (ExtraParamObject *)USER_EPOBJECT;
-  
-  XCTAssertEqual(receivedObject.number, epObject.number);
-  XCTAssertEqual(receivedObject.string, epObject.string);
-  
-  [self.router pop];
-  
-  ExtraParamObject *secondEpObect = [[ExtraParamObject alloc] initWithNumber:1 andString:@"secretString1"];
-  NSDictionary *paramsTwo = [NSDictionary dictionaryWithObjects:@[secondEpObect] forKeys:@[@"epObject"]];
-  
-  [self.router open:@"users" animated:NO extraParams:paramsTwo];
-  
-  ExtraParamObject *secondReceivedObject = (ExtraParamObject *)USER_EPOBJECT;
-  
-  XCTAssertEqual(secondReceivedObject.number, secondEpObect.number);
-  XCTAssertEqual(secondReceivedObject.string, secondEpObect.string);
-  
 }
 
 
