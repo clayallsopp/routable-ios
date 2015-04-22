@@ -43,58 +43,127 @@ typedef void (^RouterOpenCallback)(NSDictionary *params);
  ```
  UPRouterOptions *options = [[UPRouterOptions modal] withPresentationStyle: UIModalPresentationFormSheet];
  ```
+ 
+ Now, you can also use an Objective-C factory method to set everything at once
+ 
+ ```
+ UPRouterOptions *options = [UPRouterOptions routerOptionsWithPresentationStyle: UIModalPresentationFormSheet
+                                                                transitionStyle: UIModalTransitionFormSheet
+                                                                  defaultParams: nil
+                                                                         isRoot: NO
+                                                                        isModal: YES];
+ ```
+ 
+ Or, for most properties taking the default value:
+ 
+ ```
+ UPRouterOptions *options = [[UPRouterOptions alloc] init];
+ [options setTransitionStyle:UIModalTransitionStyleCoverVertical];
+ ```
  */
 
 @interface UPRouterOptions : NSObject
 
+/**
+ @return A new instance of `UPRouterOptions` with its properties explicitly set
+ @param presentationStyle The `UIModalPresentationStyle` attached to the mapped `UIViewController`
+ @param transitionStyle The `UIModalTransitionStyle` attached to the mapped `UIViewController`
+ @param defaultParams The default parameters which are passed when opening the URL
+ @param isRoot The boolean `shouldOpenAsRootViewController` property is set to
+ @param isModal The boolean that sets a modal presentation format
+ */
++ (instancetype)routerOptionsWithPresentationStyle: (UIModalPresentationStyle)presentationStyle
+                                   transitionStyle: (UIModalTransitionStyle)transitionStyle
+                                     defaultParams: (NSDictionary *)defaultParams
+                                            isRoot: (BOOL)isRoot
+                                           isModal: (BOOL)isModal;
+/**
+ @return A new instance of `UPRouterOptions` with its properties set to default
+ */
++ (instancetype)routerOptions;
+
 ///-------------------------------
 /// @name Options DSL
 ///-------------------------------
-
 /**
+ @return A new instance of `UPRouterOptions`, setting a modal presentation format.
+ */
++ (instancetype)routerOptionsAsModal;
+/**
+ @return A new instance of `UPRouterOptions`, setting a `UIModalPresentationStyle` style.
+ @param style The `UIModalPresentationStyle` attached to the mapped `UIViewController`
+ */
++ (instancetype)routerOptionsWithPresentationStyle:(UIModalPresentationStyle)style;
+/**
+ @return A new instance of `UPRouterOptions`, setting a `UIModalTransitionStyle` style.
+ @param style The `UIModalTransitionStyle` attached to the mapped `UIViewController`
+ */
++ (instancetype)routerOptionsWithTransitionStyle:(UIModalTransitionStyle)style;
+/**
+ @return A new instance of `UPRouterOptions`, setting the defaultParams
+ @param defaultParams The default parameters which are passed when opening the URL
+ */
++ (instancetype)routerOptionsForDefaultParams:(NSDictionary *)defaultParams;
+/**
+ @return A new instance of `UPRouterOptions`, setting the `shouldOpenAsRootViewController` property to `YES`
+ */
++ (instancetype)routerOptionsAsRoot;
+
+//previously supported
+/**
+ @remarks not idiomatic objective-c naming for allocation and initialization, see +routerOptionsAsModal
  @return A new instance of `UPRouterOptions`, setting a modal presentation format.
  */
 + (instancetype)modal;
 /**
+ @remarks not idiomatic objective-c naming for allocation and initialization, see + routerOptionsWithPresentationStyle:
  @return A new instance of `UPRouterOptions`, setting a `UIModalPresentationStyle` style.
  @param style The `UIModalPresentationStyle` attached to the mapped `UIViewController`
  */
 + (instancetype)withPresentationStyle:(UIModalPresentationStyle)style;
 /**
+ @remarks not idiomatic objective-c naming for allocation and initialization see +routerOptionsWithTransitionStyle:
  @return A new instance of `UPRouterOptions`, setting a `UIModalTransitionStyle` style.
  @param style The `UIModalTransitionStyle` attached to the mapped `UIViewController`
  */
 + (instancetype)withTransitionStyle:(UIModalTransitionStyle)style;
 /**
+ @remarks not idiomatic objective-c naming for allocation and initialization, see +routerOptionsForDefaultParams:
  @return A new instance of `UPRouterOptions`, setting the defaultParams
  @param defaultParams The default parameters which are passed when opening the URL
  */
 + (instancetype)forDefaultParams:(NSDictionary *)defaultParams;
 /**
+ @remarks not idiomatic objective-c naming for allocation and initialization, see +routerOptionsAsRoot
  @return A new instance of `UPRouterOptions`, setting the `shouldOpenAsRootViewController` property to `YES`
  */
 + (instancetype)root;
 
 /**
+ @remarks not idiomatic objective-c naming; overrides getter to wrap around setter
  @return The same instance of `UPRouterOptions`, setting a modal presentation format.
  */
 - (UPRouterOptions *)modal;
 /**
+ @remarks not idiomatic objective-c naming; wraps around setter
  @return The same instance of `UPRouterOptions`, setting a `UIModalPresentationStyle` style.
  @param style The `UIModalPresentationStyle` attached to the mapped `UIViewController`
  */
 - (UPRouterOptions *)withPresentationStyle:(UIModalPresentationStyle)style;
 /**
+ @remarks not idiomatic objective-c naming; wraps around setter
  @return The same instance of `UPRouterOptions`, setting a `UIModalTransitionStyle` style.
  @param style The `UIModalTransitionStyle` attached to the mapped `UIViewController`
  */
 - (UPRouterOptions *)withTransitionStyle:(UIModalTransitionStyle)style;
 /**
+ @remarks not idiomatic objective-c naming; wraps around setter
  @return The same instance of `UPRouterOptions`, setting the defaultParams
  @param defaultParams The default parameters which are passed when opening the URL
  */
 - (UPRouterOptions *)forDefaultParams:(NSDictionary *)defaultParams;
 /**
+ @remarks not idiomatic objective-c naming; wraps around setter
  @return A new instance of `UPRouterOptions`, setting the `shouldOpenAsRootViewController` property to `YES`
  */
 - (UPRouterOptions *)root;
@@ -190,6 +259,13 @@ typedef void (^RouterOpenCallback)(NSDictionary *params);
  Pop to the last `UIViewController` mapped with the router; this will either dismiss the presented `UIViewController` (i.e. modal) or pop the top view controller in the navigationController.
  @param animated Whether or not the transition is animated;
  */
+
+- (void)popViewControllerFromRouterAnimated:(BOOL)animated;
+/**
+ Pop to the last `UIViewController` mapped with the router; this will either dismiss the presented `UIViewController` (i.e. modal) or pop the top view controller in the navigationController.
+ @param animated Whether or not the transition is animated;
+ @remarks not idiomatic objective-c naming
+ */
 - (void)pop:(BOOL)animated;
 
 ///-------------------------------
@@ -258,6 +334,17 @@ typedef void (^RouterOpenCallback)(NSDictionary *params);
 - (void)open:(NSString *)url animated:(BOOL)animated;
 
 /**
+ Triggers the appropriate functionality for a mapped URL, such as an anonymous function or opening a `UIViewController`
+ @param url The URL being opened (i.e. "users/16")
+ @param animated Whether or not `UIViewController` transitions are animated.
+ @param extraParams more paramters to pass in while opening a `UIViewController`; take priority over route-specific default parameters
+ @exception RouteNotFoundException Thrown if url does not have a valid mapping
+ @exception NavigationControllerNotProvided Thrown if url opens a `UIViewController` and navigationController has not been assigned
+ @exception RoutableInitializerNotFound Thrown if the mapped `UIViewController` instance does not implement -initWithRouterParams: or +allocWithRouterParams:
+ */
+- (void)open:(NSString *)url animated:(BOOL)animated extraParams:(NSDictionary *)extraParams;
+
+/**
  Get params of a given URL, simply return the params dictionary NOT using a block
  @param url The URL being detected (i.e. "users/16")
  */
@@ -276,6 +363,7 @@ typedef void (^RouterOpenCallback)(NSDictionary *params);
 
 /**
  A new instance of `UPRouter`, in case you want to use multiple routers in your app.
+ @remarks Unnecessary method; can use [[Routable alloc] init] instead
  @return A new instance of `UPRouter`.
  */
 + (instancetype)newRouter;
