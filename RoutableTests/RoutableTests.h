@@ -6,8 +6,8 @@
 //  Copyright (c) 2013 TurboProp Inc. All rights reserved.
 //
 
-#import <SenTestingKit/SenTestingKit.h>
+#import <XCTest/XCTest.h>
 
-@interface RoutableTests : SenTestCase
+@interface RoutableTests : XCTestCase
 
 @end

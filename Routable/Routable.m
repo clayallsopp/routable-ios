@@ -47,20 +47,23 @@
 
 @property (readwrite, nonatomic, strong) UPRouterOptions *routerOptions;
 @property (readwrite, nonatomic, strong) NSDictionary *openParams;
+@property (readwrite, nonatomic, strong) NSDictionary *extraParams;
 @property (readwrite, nonatomic, strong) NSDictionary *controllerParams;
 
 @end
 
 @implementation RouterParams
 
-- (instancetype)initWithRouterOptions: (UPRouterOptions *)routerOptions openParams: (NSDictionary *)openParams {
+- (instancetype)initWithRouterOptions: (UPRouterOptions *)routerOptions openParams: (NSDictionary *)openParams extraParams: (NSDictionary *)extraParams{
   [self setRouterOptions:routerOptions];
+  [self setExtraParams: extraParams];
   [self setOpenParams:openParams];
   return self;
 }
 
 - (NSDictionary *)controllerParams {
   NSMutableDictionary *controllerParams = [NSMutableDictionary dictionaryWithDictionary:self.routerOptions.defaultParams];
+  [controllerParams addEntriesFromDictionary:self.extraParams];
   [controllerParams addEntriesFromDictionary:self.openParams];
   return controllerParams;
 }
@@ -247,7 +250,14 @@
 }
 
 - (void)open:(NSString *)url animated:(BOOL)animated {
-  RouterParams *params = [self routerParamsForUrl:url];
+  [self open:url animated:animated extraParams:nil];
+}
+
+- (void)open:(NSString *)url
+    animated:(BOOL)animated
+ extraParams:(NSDictionary *)extraParams
+{
+  RouterParams *params = [self routerParamsForUrl:url extraParams: extraParams];
   UPRouterOptions *options = params.routerOptions;
   
   if (options.callback) {
@@ -294,7 +304,6 @@
     [self.navigationController pushViewController:controller animated:animated];
   }
 }
-
 - (NSDictionary*)paramsOfUrl:(NSString*)url {
   return [[self routerParamsForUrl:url] controllerParams];
 }
@@ -316,7 +325,7 @@
 }
 
 ///////
-- (RouterParams *)routerParamsForUrl:(NSString *)url {
+- (RouterParams *)routerParamsForUrl:(NSString *)url extraParams: (NSDictionary *)extraParams {
   if (!url) {
     //if we wait, caching this as key would throw an exception
     if (_ignoresExceptions) {
@@ -327,7 +336,7 @@
                                  userInfo:nil];
   }
   
-  if ([self.cachedRoutes objectForKey:url]) {
+  if ([self.cachedRoutes objectForKey:url] && !extraParams) {
     return [self.cachedRoutes objectForKey:url];
   }
   
@@ -347,7 +356,7 @@
        
        NSDictionary *givenParams = [self paramsForUrlComponents:givenParts routerUrlComponents:routerParts];
        if (givenParams) {
-         openParams = [[RouterParams alloc] initWithRouterOptions:routerOptions openParams:givenParams];
+         openParams = [[RouterParams alloc] initWithRouterOptions:routerOptions openParams:givenParams extraParams: extraParams];
          *stop = YES;
        }
      }
@@ -363,6 +372,10 @@
   }
   [self.cachedRoutes setObject:openParams forKey:url];
   return openParams;
+}
+
+- (RouterParams *)routerParamsForUrl:(NSString *)url {
+  return [self routerParamsForUrl:url extraParams: nil];
 }
 
 - (NSDictionary *)paramsForUrlComponents:(NSArray *)givenUrlComponents
