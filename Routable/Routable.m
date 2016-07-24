@@ -421,14 +421,15 @@
     [invocatin getReturnValue: &controller];
   }
   else if ([params.routerOptions.openClass instancesRespondToSelector:CONTROLLER_SELECTOR]) {
+    __kindof UIViewController *target = [controllerClass alloc];
     NSMethodSignature *sig  = [controllerClass instanceMethodSignatureForSelector:CONTROLLER_SELECTOR];
     NSInvocation *invocatin = [NSInvocation invocationWithMethodSignature:sig];
-    [invocatin setTarget:controllerClass];
+    [invocatin setTarget:target];
     [invocatin setSelector:CONTROLLER_SELECTOR];
     NSDictionary *paramsDic = [params controllerParams];
     [invocatin setArgument:&paramsDic atIndex:2];
     [invocatin invoke];
-    [invocatin getReturnValue: &controller];
+    controller = target;
   }
     
   if (!controller) {
