@@ -1,5 +1,5 @@
 
-# Routable [![Build Status](https://travis-ci.org/clayallsopp/routable-ios.svg)](https://travis-ci.org/clayallsopp/routable-ios)
+# Routable [![Build Status](https://travis-ci.org/clayallsopp/routable-ios.svg)](https://travis-ci.org/clayallsopp/routable-ios) [![FOSSA Status](https://app.fossa.io/api/projects/git%2Bhttps%3A%2F%2Fgithub.com%2Fclayallsopp%2Froutable-ios.svg?size=small)](https://app.fossa.io/projects/git%2Bhttps%3A%2F%2Fgithub.com%2Fclayallsopp%2Froutable-ios?ref=badge_small)
 
 Routable is an in-app native URL router, for iOS. Also available for [Android](https://github.com/usepropeller/routable-android).
 
@@ -130,3 +130,5 @@ Clay Allsopp ([http://clayallsopp.com](http://clayallsopp.com))
 ## License
 
 Routable for iOS is available under the MIT license. See the LICENSE file for more info.
+
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bhttps%3A%2F%2Fgithub.com%2Fclayallsopp%2Froutable-ios.svg?size=large)](https://app.fossa.io/projects/git%2Bhttps%3A%2F%2Fgithub.com%2Fclayallsopp%2Froutable-ios?ref=badge_large)
