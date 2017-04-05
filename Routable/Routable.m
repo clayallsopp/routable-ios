@@ -81,18 +81,35 @@
 
 @implementation UPRouterOptions
 
+//Backwards compatibility
++ (instancetype)routerOptionsWithPresentationStyle: (UIModalPresentationStyle)presentationStyle
+                                   transitionStyle: (UIModalTransitionStyle)transitionStyle
+                                     defaultParams: (NSDictionary *)defaultParams
+                                            isRoot: (BOOL)isRoot
+                                           isModal: (BOOL)isModal
+{
+    return [self routerOptionsWithPresentationStyle:presentationStyle
+                                    transitionStyle:transitionStyle
+                                      defaultParams:defaultParams
+                                             isRoot:isRoot
+                                            isModal:isModal
+               shouldDismissPresentedViewController:YES];
+}
 //Explicit construction
 + (instancetype)routerOptionsWithPresentationStyle: (UIModalPresentationStyle)presentationStyle
                                    transitionStyle: (UIModalTransitionStyle)transitionStyle
                                      defaultParams: (NSDictionary *)defaultParams
                                             isRoot: (BOOL)isRoot
-                                           isModal: (BOOL)isModal {
+                                           isModal: (BOOL)isModal
+              shouldDismissPresentedViewController: (BOOL)shouldDismissPresentedViewController
+{
   UPRouterOptions *options = [[UPRouterOptions alloc] init];
   options.presentationStyle = presentationStyle;
   options.transitionStyle = transitionStyle;
   options.defaultParams = defaultParams;
   options.shouldOpenAsRootViewController = isRoot;
   options.modal = isModal;
+  options.shouldDismissPresentedViewController = shouldDismissPresentedViewController;
   return options;
 }
 //Default construction; like [NSArray array]
@@ -101,7 +118,8 @@
                                   transitionStyle:UIModalTransitionStyleCoverVertical
                                     defaultParams:nil
                                            isRoot:NO
-                                          isModal:NO];
+                                          isModal:NO
+             shouldDismissPresentedViewController:YES];
 }
 
 //Custom class constructors, with heavier Objective-C accent
@@ -110,35 +128,48 @@
                                   transitionStyle:UIModalTransitionStyleCoverVertical
                                     defaultParams:nil
                                            isRoot:NO
-                                          isModal:YES];
+                                          isModal:YES
+             shouldDismissPresentedViewController:YES];
 }
 + (instancetype)routerOptionsWithPresentationStyle:(UIModalPresentationStyle)style {
   return [self routerOptionsWithPresentationStyle:style
                                   transitionStyle:UIModalTransitionStyleCoverVertical
                                     defaultParams:nil
                                            isRoot:NO
-                                          isModal:NO];
+                                          isModal:NO
+             shouldDismissPresentedViewController:YES];
 }
 + (instancetype)routerOptionsWithTransitionStyle:(UIModalTransitionStyle)style {
   return [self routerOptionsWithPresentationStyle:UIModalPresentationNone
                                   transitionStyle:style
                                     defaultParams:nil
                                            isRoot:NO
-                                          isModal:NO];
+                                          isModal:NO
+             shouldDismissPresentedViewController:YES];
 }
 + (instancetype)routerOptionsForDefaultParams:(NSDictionary *)defaultParams {
   return [self routerOptionsWithPresentationStyle:UIModalPresentationNone
                                   transitionStyle:UIModalTransitionStyleCoverVertical
                                     defaultParams:defaultParams
                                            isRoot:NO
-                                          isModal:NO];
+                                          isModal:NO
+             shouldDismissPresentedViewController:YES];
 }
 + (instancetype)routerOptionsAsRoot {
   return [self routerOptionsWithPresentationStyle:UIModalPresentationNone
                                   transitionStyle:UIModalTransitionStyleCoverVertical
                                     defaultParams:nil
                                            isRoot:YES
-                                          isModal:NO];
+                                          isModal:NO
+             shouldDismissPresentedViewController:YES];
+}
++ (instancetype)routerOptionsAsKeepPresentedViewController {
+    return [self routerOptionsWithPresentationStyle:UIModalPresentationNone
+                                    transitionStyle:UIModalTransitionStyleCoverVertical
+                                      defaultParams:nil
+                                             isRoot:NO
+                                            isModal:NO
+               shouldDismissPresentedViewController:NO];
 }
 
 //Exposed methods previously supported
@@ -156,6 +187,9 @@
 }
 + (instancetype)root {
   return [self routerOptionsAsRoot];
+}
++ (instancetype)keepPresentedViewController {
+    return [self routerOptionsAsKeepPresentedViewController];
 }
 
 //Wrappers around setters (to continue DSL-like syntax)
@@ -178,6 +212,10 @@
 - (UPRouterOptions *)root {
   [self setShouldOpenAsRootViewController:YES];
   return self;
+}
+- (UPRouterOptions *)keepPresentedViewController {
+    [self setShouldDismissPresentedViewController:NO];
+    return self;
 }
 @end
 
@@ -278,15 +316,21 @@
   
   UIViewController *controller = [self controllerForRouterParams:params];
   
-  if (self.navigationController.presentedViewController) {
+  if (self.navigationController.presentedViewController && [options shouldDismissPresentedViewController]) {
     [self.navigationController dismissViewControllerAnimated:animated completion:nil];
   }
   
   if ([options isModal]) {
     if ([controller.class isSubclassOfClass:UINavigationController.class]) {
-      [self.navigationController presentViewController:controller
-                                              animated:animated
-                                            completion:nil];
+        UIViewController* controllerToPresentOn = self.navigationController;
+        
+        if (self.navigationController.presentedViewController) {
+            controllerToPresentOn = self.navigationController.presentedViewController;
+        }
+        
+        [controllerToPresentOn presentViewController:controller
+                                            animated:animated
+                                          completion:nil];
     }
     else {
       UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:controller];

@@ -78,6 +78,21 @@ typedef void (^RouterOpenCallback)(NSDictionary *params);
                                             isRoot: (BOOL)isRoot
                                            isModal: (BOOL)isModal;
 /**
+ @return A new instance of `UPRouterOptions` with its properties explicitly set
+ @param presentationStyle The `UIModalPresentationStyle` attached to the mapped `UIViewController`
+ @param transitionStyle The `UIModalTransitionStyle` attached to the mapped `UIViewController`
+ @param defaultParams The default parameters which are passed when opening the URL
+ @param isRoot The boolean `shouldOpenAsRootViewController` property is set to
+ @param isModal The boolean that sets a modal presentation format
+ @param shouldDismissPresentedViewController The boolean indicating whether an already existing presentedViewController should be dismissed before presenting a new one
+ */
++ (instancetype)routerOptionsWithPresentationStyle: (UIModalPresentationStyle)presentationStyle
+                                   transitionStyle: (UIModalTransitionStyle)transitionStyle
+                                     defaultParams: (NSDictionary *)defaultParams
+                                            isRoot: (BOOL)isRoot
+                                           isModal: (BOOL)isModal
+              shouldDismissPresentedViewController: (BOOL)shouldDismissPresentedViewController;
+/**
  @return A new instance of `UPRouterOptions` with its properties set to default
  */
 + (instancetype)routerOptions;
@@ -108,6 +123,10 @@ typedef void (^RouterOpenCallback)(NSDictionary *params);
  @return A new instance of `UPRouterOptions`, setting the `shouldOpenAsRootViewController` property to `YES`
  */
 + (instancetype)routerOptionsAsRoot;
+/**
+ @return A new instance of `UPRouterOptions`, setting the `shouldDismissPresentedViewController` property to `NO`
+ */
++ (instancetype)routerOptionsAsKeepPresentedViewController;
 
 //previously supported
 /**
@@ -138,6 +157,11 @@ typedef void (^RouterOpenCallback)(NSDictionary *params);
  @return A new instance of `UPRouterOptions`, setting the `shouldOpenAsRootViewController` property to `YES`
  */
 + (instancetype)root;
+/**
+ @remarks not idiomatic objective-c naming for allocation and initialization, see +routerOptionsAsRoot
+ @return A new instance of `UPRouterOptions`, setting the `shouldDismissPresentedViewController` property to `NO`
+ */
++ (instancetype)keepPresentedViewController;
 
 /**
  @remarks not idiomatic objective-c naming; overrides getter to wrap around setter
@@ -167,6 +191,11 @@ typedef void (^RouterOpenCallback)(NSDictionary *params);
  @return A new instance of `UPRouterOptions`, setting the `shouldOpenAsRootViewController` property to `YES`
  */
 - (UPRouterOptions *)root;
+/**
+ @remarks not idiomatic objective-c naming; wraps around setter
+ @return A new instance of `UPRouterOptions`, setting the `shouldDismissPresentedViewController` property to `NO`
+ */
+- (UPRouterOptions *)keepPresentedViewController;
 
 ///-------------------------------
 /// @name Properties
@@ -192,6 +221,10 @@ typedef void (^RouterOpenCallback)(NSDictionary *params);
  The property determining if the mapped `UIViewController` instance should be set as the root view controller of the router's `UINavigationController` instance.
  */
 @property (readwrite, nonatomic, assign) BOOL shouldOpenAsRootViewController;
+/**
+ The property determining if a possibly already presented view controller should be dismissed before presenting the new one. Defaults to 'YES'.
+ */
+@property (readwrite, nonatomic, assign) BOOL shouldDismissPresentedViewController;
 
 @end
 
