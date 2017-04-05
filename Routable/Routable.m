@@ -403,15 +403,35 @@
   SEL CONTROLLER_SELECTOR = sel_registerName("initWithRouterParams:");
   UIViewController *controller = nil;
   Class controllerClass = params.routerOptions.openClass;
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
-  if ([controllerClass respondsToSelector:CONTROLLER_CLASS_SELECTOR]) {
-    controller = [controllerClass performSelector:CONTROLLER_CLASS_SELECTOR withObject:[params controllerParams]];
+
+/***
+ Fix by SerilesJam
+ this place use performselector will be cause leak and will be UIViewController instance can't excute -(void)dealloc 
+ method. We replace the new method 
+ ***/
+    
+ if ([controllerClass respondsToSelector:CONTROLLER_CLASS_SELECTOR]) {
+    NSMethodSignature *sig  = [controllerClass methodSignatureForSelector:CONTROLLER_CLASS_SELECTOR];
+    NSInvocation *invocatin = [NSInvocation invocationWithMethodSignature:sig];
+    [invocatin setTarget:controllerClass];
+    [invocatin setSelector:CONTROLLER_CLASS_SELECTOR];
+    NSDictionary *paramsDic = [params controllerParams];
+    [invocatin setArgument:&paramsDic atIndex:2];
+    [invocatin invoke];
+    [invocatin getReturnValue: &controller];
   }
   else if ([params.routerOptions.openClass instancesRespondToSelector:CONTROLLER_SELECTOR]) {
-    controller = [[params.routerOptions.openClass alloc] performSelector:CONTROLLER_SELECTOR withObject:[params controllerParams]];
+    __kindof UIViewController *target = [controllerClass alloc];
+    NSMethodSignature *sig  = [controllerClass instanceMethodSignatureForSelector:CONTROLLER_SELECTOR];
+    NSInvocation *invocatin = [NSInvocation invocationWithMethodSignature:sig];
+    [invocatin setTarget:target];
+    [invocatin setSelector:CONTROLLER_SELECTOR];
+    NSDictionary *paramsDic = [params controllerParams];
+    [invocatin setArgument:&paramsDic atIndex:2];
+    [invocatin invoke];
+    controller = target;
   }
-#pragma clang diagnostic pop
+    
   if (!controller) {
     if (_ignoresExceptions) {
       return controller;
