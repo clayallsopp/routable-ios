@@ -282,7 +282,12 @@
     [self.navigationController dismissViewControllerAnimated:animated completion:nil];
   }
   
-  if ([options isModal]) {
+  if (options.presentationStyle == UIModalPresentationCustom) {
+      [self.navigationController presentViewController:controller
+                                              animated:animated
+                                            completion:nil];
+  }
+  else if ([options isModal]) {
     if ([controller.class isSubclassOfClass:UINavigationController.class]) {
       [self.navigationController presentViewController:controller
                                               animated:animated
